@@ -5,7 +5,6 @@ on:
     types: [ published ]
 
 env:
-  TAG_NAME: ${{ github.event.release.tag_name }}
   NuGetDirectory: ${{ github.workspace }}/nuget
   
 defaults:
@@ -28,6 +27,8 @@ jobs:
 
   create_nuget:
     runs-on: ubuntu-latest
+    env:
+      TAG_NAME: ${{ github.event.release.tag_name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -39,14 +40,14 @@ jobs:
         run: dotnet build -c Release
 
       - name: Pack NuGets
-        run: dotnet pack -c Release --no-build --output ${{ env.NuGetDirectory }} /p:Version=${TAG_NAME}
+        run: dotnet pack -c Release --no-build --output ${ env.NuGetDirectory } /p:Version=${TAG_NAME}
         
       - uses: actions/upload-artifact@v3
         with:
           name: Publish to artifacts
           if-no-files-found: error
           retention-days: 7
-          path: ${{ env.NuGetDirectory }}/*.nupkg
+          path: ${ env.NuGetDirectory }/*.nupkg
              
   publish:
     runs-on: ubuntu-latest
@@ -60,13 +61,13 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: nuget
-          path: ${{ env.NuGetDirectory }}
+          path: ${ env.NuGetDirectory }
 
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v1
 
       - name: Publish NuGet package
         run: |
-          foreach ($file in Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg) {
-              dotnet nuget push $file.FullName --api-key "${{ secrets.nuget_api_key }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          foreach ($file in Get-ChildItem "${ env.NuGetDirectory }" -Recurse -Include *.nupkg) {
+              dotnet nuget push $file.FullName --api-key "${ secrets.nuget_api_key }" --source https://api.nuget.org/v3/index.json --skip-duplicate
           }
