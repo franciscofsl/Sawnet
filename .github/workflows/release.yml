@@ -4,13 +4,30 @@ on:
   release:
     types: [ published ]
 
+env:
+  TAG_NAME: ${{ github.event.release.tag_name }}
+  NuGetDirectory: ${{ github.workspace }}/nuget
+  
+defaults:
+  run:
+    shell: pwsh
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
-    env:
-      TAG_NAME: ${{ github.event.release.tag_name }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v1
+
+      - name: Build
+        run: dotnet build -c Release
+
+  create_nuget:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -22,7 +39,34 @@ jobs:
         run: dotnet build -c Release
 
       - name: Pack NuGets
-        run: dotnet pack -c Release --no-build --output . /p:Version=${TAG_NAME}
+        run: dotnet pack -c Release --no-build --output ${{ env.NuGetDirectory }} /p:Version=${TAG_NAME}
+        
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Publish to artifacts
+          if-no-files-found: error
+          retention-days: 7
+          path: ${{ env.NuGetDirectory }}/*.nupkg
+             
+  publish:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release'
+    needs: [ build, create_nuget ]
 
-      - name: Push to NuGet
-        run: dotnet nuget push "*.nupkg" --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - uses: actions/download-artifact@v3
+        with:
+          name: nuget
+          path: ${{ env.NuGetDirectory }}
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v1
+
+      - name: Publish NuGet package
+        run: |
+          foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg)) {
+              dotnet nuget push $file --api-key "${{ secrets.nuget_api_key }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          }
