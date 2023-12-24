@@ -9,18 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     env:
-      MAJOR_VERSION: 1
-      MINOR_VERSION: 0
-      PATCH_VERSION: 1
+      TAG_NAME: ${{ github.event.release.tag_name }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Get tag name
-        env:
-          TAG_NAME: ${{ github.event.release.tag_name }}
-        run: echo %TAG_NAME%
 
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v1
