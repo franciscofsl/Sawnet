@@ -40,7 +40,7 @@ jobs:
         run: dotnet build -c Release
 
       - name: Pack NuGets
-        run: dotnet pack -c Release --no-build --output ${ env.NuGetDirectory } /p:Version=${TAG_NAME}
+        run: dotnet pack -c Release --no-build --output ${{ env.NuGetDirectory }} /p:Version=${TAG_NAME}
         
       - uses: actions/upload-artifact@v3
         with:
