@@ -21,7 +21,10 @@ jobs:
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
-        
+      
+      - name: Build
+        run: dotnet build -c Release
+          
       - name: Pack NuGets
         run: dotnet pack -c Release --no-build --output . /p:Version=${TAG_NAME}
         
