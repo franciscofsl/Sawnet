@@ -39,7 +39,7 @@ jobs:
         run: dotnet build -c Release
 
       - name: Pack NuGets
-        run: dotnet pack -c Release --no-build --output ${{ env.NuGetDirectory }} /p:Version=${TAG_NAME}
+        run: dotnet pack -c Release --no-build --output ${{ env.NuGetDirectory }} /p:Version=${{TAG_NAME}}
         
       - uses: actions/upload-artifact@v3
         with:
@@ -67,6 +67,6 @@ jobs:
 
       - name: Publish NuGet package
         run: |
-          foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg)) {
-              dotnet nuget push $file --api-key "${{ secrets.nuget_api_key }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          foreach ($file in Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg) {
+              dotnet nuget push $file.FullName --api-key "${{ secrets.nuget_api_key }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
           }
