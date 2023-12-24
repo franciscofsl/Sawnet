@@ -6,8 +6,20 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latest 
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v1
+
+      - name: Build
+        run: dotnet build -c Release
+
+  create_nuget:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
     env:
       TAG_NAME: ${{ github.event.release.tag_name }}
 
@@ -23,6 +35,18 @@ jobs:
 
       - name: Pack NuGets
         run: dotnet pack -c Release --no-build --output . /p:Version=${TAG_NAME}
+
+  publish:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release'
+    needs: [ build, create_nuget ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v1
 
       - name: Push to NuGet
         run: dotnet nuget push "*.nupkg" --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json
