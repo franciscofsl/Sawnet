@@ -2,7 +2,7 @@ name: Release to NuGet
 
 on:
   release:
-    types: [published]
+    types: [ published ]
 
 jobs:
   build:
@@ -17,18 +17,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Get tag name
+        env:
+          TAG_NAME: ${{ github.event.release.tag_name }}
+        run: echo %TAG_NAME%
+
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v1
 
       - name: Build
         run: dotnet build -c Release
 
-      - name: Increment Version
-        id: increment_version
-        run: echo "::set-env name=PATCH_VERSION::$((${{ env.PATCH_VERSION }} + 1))"
-
       - name: Pack NuGets
-        run: dotnet pack -c Release --no-build --output . /p:Version=${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.PATCH_VERSION }}
+        run: dotnet pack -c Release --no-build --output . /p:Version=${TAG_NAME}
 
       - name: Push to NuGet
         run: dotnet nuget push "*.nupkg" --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json
