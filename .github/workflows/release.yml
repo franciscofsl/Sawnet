@@ -3,69 +3,37 @@ name: Release to NuGet
 on:
   release:
     types: [ published ]
-  
-defaults:
-  run:
-    shell: pwsh
 
 jobs:
-  create_nuget:
-    runs-on: ubuntu-latest
-    env:
-      TAG_NAME: ${{ github.event.release.tag_name }}
-    steps:   
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        
-      - name: Pack NuGets
-        run: dotnet pack -c Release --no-build --output . /p:Version=${TAG_NAME}
-        
-      - uses: actions/upload-artifact@v3
-        with:
-          name: Publish to artifacts
-          if-no-files-found: error
-          retention-days: 7
-          path: /*.nupkg
-
   build:
     runs-on: ubuntu-latest
-    
+    timeout-minutes: 5
+    env:
+      TAG_NAME: ${{ github.event.release.tag_name }}
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v2
 
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v1
-
+        
+      - name: Start dependencies (docker-compose)
+        run: |
+          docker-compose up -d
+          
+      - name: Wait for SQL Server container
+        run: sleep 30s
+        shell: bash
+        
       - name: Build
         run: dotnet build -c Release
 
-      
-  publish:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'release'
-    needs: [ create_nuget ]
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-        
-      - uses: actions/download-artifact@v3
-        with:
-          name: nuget
-          path: .
+      - name: Pack NuGets
+        run: dotnet pack -c Release --no-build --output . /p:Version=${TAG_NAME}
 
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v1
-
-      - name: Publish NuGet package
-        run: dotnet nuget push "*.nupkg" --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json --skip-duplicate
+      - name: Push to NuGet
+        run: dotnet nuget push "*.nupkg" --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json
