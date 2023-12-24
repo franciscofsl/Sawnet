@@ -5,7 +5,6 @@ on:
     types: [ published ]
 
 env:
-  TAG_NAME: ${{ github.event.release.tag_name }}
   NuGetDirectory: ${{ github.workspace }}/nuget
   
 defaults:
@@ -28,6 +27,8 @@ jobs:
 
   create_nuget:
     runs-on: ubuntu-latest
+    env:
+      TAG_NAME: ${{ github.event.release.tag_name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
