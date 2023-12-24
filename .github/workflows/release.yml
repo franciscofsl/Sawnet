@@ -12,33 +12,18 @@ defaults:
     shell: pwsh
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v1
-
-      - name: Build
-        run: dotnet build -c Release
-
   create_nuget:
     runs-on: ubuntu-latest
     env:
       TAG_NAME: ${{ github.event.release.tag_name }}
-    steps:
+    steps:   
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v1
-        
-      - name: Restore dependencies
-        run: dotnet restore
-        working-directory: ${{ env.NuGetDirectory }}
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
         
       - name: Pack NuGets
         run: dotnet pack -c Release --no-build --output ${{ env.NuGetDirectory }} /p:Version=${TAG_NAME}
@@ -49,15 +34,33 @@ jobs:
           if-no-files-found: error
           retention-days: 7
           path: ${{ env.NuGetDirectory }}/*.nupkg
-             
+
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v1
+
+      - name: Build
+        run: dotnet build -c Release
+
+      
   publish:
     runs-on: ubuntu-latest
     if: github.event_name == 'release'
-    needs: [ build, create_nuget ]
+    needs: [ create_nuget ]
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
         
       - uses: actions/download-artifact@v3
         with:
