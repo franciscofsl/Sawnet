@@ -17,6 +17,11 @@
         <DesignTime>True</DesignTime>
         <DependentUpon>AggregateIdTemplate.tt</DependentUpon>
       </Compile>
+      <Compile Update="Aggregate\IAggregateRepositoryTemplate.cs">
+        <AutoGen>True</AutoGen>
+        <DesignTime>True</DesignTime>
+        <DependentUpon>IAggregateRepositoryTemplate.tt</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -27,6 +32,10 @@
       <None Update="Aggregate\ValueObjects\AggregateIdTemplate.tt">
         <Generator>TextTemplatingFilePreprocessor</Generator>
         <LastGenOutput>AggregateIdTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="Aggregate\IAggregateRepositoryTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>IAggregateRepositoryTemplate.cs</LastGenOutput>
       </None>
     </ItemGroup>
 

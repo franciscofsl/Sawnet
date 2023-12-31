@@ -1,0 +1,12 @@
+<#@ template language="C#" #>
+<#@ import namespace="Shared" #>
+using <#= ApplicationStructure.AppName #>.Core.<#= EntityInfo.PluralName #>.ValueObjects;
+using Sawnet.Core.Contracts;
+
+namespace <#= ApplicationStructure.AppName #>.Core.<#= EntityInfo.PluralName #>;
+
+public interface <#= EntityInfo.RepoInterfaceType #> : IRepository<<#= EntityInfo.SingularName #>, <#= EntityInfo.IdType #>>
+{
+}<#+
+    public EntityInfo EntityInfo { get; set; }
+#>

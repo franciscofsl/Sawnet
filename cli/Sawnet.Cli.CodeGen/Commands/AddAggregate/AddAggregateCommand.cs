@@ -28,6 +28,7 @@ public class AddAggregateCommand : AsyncCommand<AddAggregateSettings>
     {
         await AddAggregate(entityInfo);
         await AddAggregateId(entityInfo);
+        await AddRepositoryInterface(entityInfo);
     }
 
     private async Task AddAggregate(EntityInfo entityInfo)
@@ -56,6 +57,21 @@ public class AddAggregateCommand : AsyncCommand<AddAggregateSettings>
         var targetPath = $"{ApplicationStructure.Core}\\{entityInfo.PluralName}\\ValueObjects";
 
         var fileInfo = new CliFileInfo(entityInfo.IdType, targetPath, content);
+
+        await _cliFileManager.SaveAsync(fileInfo);
+    }
+    
+    private async Task AddRepositoryInterface(EntityInfo entityInfo)
+    {
+        var template = new IAggregateRepositoryTemplate()
+        {
+            EntityInfo = entityInfo
+        };
+
+        var content = template.TransformText();
+        var targetPath = $"{ApplicationStructure.Core}\\{entityInfo.PluralName}";
+
+        var fileInfo = new CliFileInfo(entityInfo.RepoInterfaceType, targetPath, content);
 
         await _cliFileManager.SaveAsync(fileInfo);
     }
