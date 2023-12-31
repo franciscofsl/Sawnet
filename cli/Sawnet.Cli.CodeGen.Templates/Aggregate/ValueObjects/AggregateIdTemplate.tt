@@ -1,0 +1,24 @@
+﻿<#@ template language="C#" #>
+<#@ import namespace="Shared" #>
+namespace <#= ApplicationStructure.AppName #>.Core.<#= EntityInfo.PluralName #>.ValueObjects;
+
+public record <#= EntityInfo.IdType #> : EntityId
+{
+    private <#= EntityInfo.IdType #>()
+    {
+    }
+
+    public static <#= EntityInfo.IdType #> Create(Guid value)
+    {
+        return new <#= EntityInfo.IdType #>
+        {
+            Value = value
+        };
+    }
+
+    public static explicit operator <#= EntityInfo.IdType #>(Guid id) => Create(id);
+
+    public static implicit operator Guid(<#= EntityInfo.IdType #> id) => id.Value;
+}<#+
+    public EntityInfo EntityInfo { get; set; }
+#>

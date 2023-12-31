@@ -3,5 +3,5 @@
 public interface ICliFileManager
 {
     Task<CliFileInfo> SaveAsync(CliFileInfo fileInfo);
- 
+
 }

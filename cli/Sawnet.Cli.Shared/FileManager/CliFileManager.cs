@@ -12,5 +12,5 @@ public class CliFileManager : ICliFileManager
         await File.WriteAllTextAsync(fileInfo.FullPath, fileInfo.Content);
 
         return fileInfo;
-    }
+    } 
 }

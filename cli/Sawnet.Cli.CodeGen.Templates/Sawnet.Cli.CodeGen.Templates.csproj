@@ -6,4 +6,36 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Compile Update="Aggregate\AggregateTemplate.cs">
+        <AutoGen>True</AutoGen>
+        <DesignTime>True</DesignTime>
+        <DependentUpon>AggregateTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="Aggregate\ValueObjects\AggregateIdTemplate.cs">
+        <AutoGen>True</AutoGen>
+        <DesignTime>True</DesignTime>
+        <DependentUpon>AggregateIdTemplate.tt</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Aggregate\AggregateTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>AggregateTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="Aggregate\ValueObjects\AggregateIdTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>AggregateIdTemplate.cs</LastGenOutput>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Sawnet.Cli.Shared\Sawnet.Cli.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="System.CodeDom" />
+    </ItemGroup>
+
 </Project>

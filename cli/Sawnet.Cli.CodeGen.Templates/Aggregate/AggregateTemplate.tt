@@ -1,1 +1,22 @@
 ﻿<#@ template language="C#" #>
+<#@ import namespace="Shared" #>
+using <#= ApplicationStructure.AppName #>.Core.<#= EntityInfo.PluralName #>.ValueObjects;
+
+namespace <#= ApplicationStructure.AppName #>.Core.<#= EntityInfo.PluralName #>;
+
+public sealed class <#= EntityInfo.SingularName #> : AggregateRoot<<#= EntityInfo.IdType #>>
+{
+    private <#= EntityInfo.SingularName #>()
+    {
+    }
+
+    public static <#= EntityInfo.SingularName #> Create(<#= EntityInfo.IdType #> id)
+    {
+        return new <#= EntityInfo.SingularName #>
+        {
+            Id = id
+        };
+    }
+}<#+
+    public EntityInfo EntityInfo { get; set; }
+#>

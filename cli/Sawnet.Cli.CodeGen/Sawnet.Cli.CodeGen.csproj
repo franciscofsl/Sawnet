@@ -12,6 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Sawnet.Cli.CodeGen.Templates\Sawnet.Cli.CodeGen.Templates.csproj" />
       <ProjectReference Include="..\Sawnet.Cli.Shared\Sawnet.Cli.Shared.csproj" />
     </ItemGroup>
 
