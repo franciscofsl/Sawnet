@@ -7,35 +7,60 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Compile Update="Aggregate\AggregateTemplate.cs">
-        <AutoGen>True</AutoGen>
-        <DesignTime>True</DesignTime>
-        <DependentUpon>AggregateTemplate.tt</DependentUpon>
-      </Compile>
       <Compile Update="Aggregate\ValueObjects\AggregateIdTemplate.cs">
         <AutoGen>True</AutoGen>
         <DesignTime>True</DesignTime>
         <DependentUpon>AggregateIdTemplate.tt</DependentUpon>
       </Compile>
-      <Compile Update="Aggregate\IAggregateRepositoryTemplate.cs">
+      <Compile Update="Aggregate\Core\AggregateTemplate.cs">
+        <AutoGen>True</AutoGen>
+        <DesignTime>True</DesignTime>
+        <DependentUpon>AggregateTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="Aggregate\Core\IAggregateRepositoryTemplate.cs">
         <AutoGen>True</AutoGen>
         <DesignTime>True</DesignTime>
         <DependentUpon>IAggregateRepositoryTemplate.tt</DependentUpon>
       </Compile>
+      <Compile Update="Aggregate\Core\ValueObjects\AggregateIdTemplate.cs">
+        <DependentUpon>AggregateIdTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="Aggregate\Application\Commands\CreateAggregateCommand.cs">
+        <AutoGen>True</AutoGen>
+        <DesignTime>True</DesignTime>
+        <DependentUpon>CreateAggregateCommand.tt</DependentUpon>
+      </Compile>
+      <Compile Update="Aggregate\Application\Commands\CreateAggregateCommandHandler.cs">
+        <AutoGen>True</AutoGen>
+        <DesignTime>True</DesignTime>
+        <DependentUpon>CreateAggregateCommandHandler.tt</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="Aggregate\AggregateTemplate.tt">
-        <Generator>TextTemplatingFilePreprocessor</Generator>
-        <LastGenOutput>AggregateTemplate.cs</LastGenOutput>
-      </None>
       <None Update="Aggregate\ValueObjects\AggregateIdTemplate.tt">
         <Generator>TextTemplatingFilePreprocessor</Generator>
         <LastGenOutput>AggregateIdTemplate.cs</LastGenOutput>
       </None>
-      <None Update="Aggregate\IAggregateRepositoryTemplate.tt">
+      <None Update="Aggregate\Core\ValueObjects\AggregateIdTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>AggregateIdTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="Aggregate\Core\AggregateTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>AggregateTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="Aggregate\Core\IAggregateRepositoryTemplate.tt">
         <Generator>TextTemplatingFilePreprocessor</Generator>
         <LastGenOutput>IAggregateRepositoryTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="Aggregate\Application\Commands\CreateAggregateCommand.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>CreateAggregateCommand.cs</LastGenOutput>
+      </None>
+      <None Update="Aggregate\Application\Commands\CreateAggregateCommandHandler.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>CreateAggregateCommandHandler.cs</LastGenOutput>
       </None>
     </ItemGroup>
 

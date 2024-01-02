@@ -1,6 +1,7 @@
 ﻿using Sawnet.Cli.CodeGen.Templates;
-using Sawnet.Cli.CodeGen.Templates.Aggregate;
-using Sawnet.Cli.CodeGen.Templates.Aggregate.ValueObjects;
+using Sawnet.Cli.CodeGen.Templates.Aggregate.Application.Commands;
+using Sawnet.Cli.CodeGen.Templates.Aggregate.Core;
+using Sawnet.Cli.CodeGen.Templates.Aggregate.Core.ValueObjects;
 using Sawnet.Cli.Shared;
 using Sawnet.Cli.Shared.FileManager;
 
@@ -20,9 +21,12 @@ public class AddAggregateCommand : AsyncCommand<AddAggregateSettings>
         var entityInfo = new EntityInfo(settings.PluralName, settings.SingularName);
 
         await AddCoreTypes(entityInfo);
+        await AddApplicationTypes(entityInfo);
 
         return 1;
     }
+
+    #region Core Types
 
     private async Task AddCoreTypes(EntityInfo entityInfo)
     {
@@ -60,7 +64,7 @@ public class AddAggregateCommand : AsyncCommand<AddAggregateSettings>
 
         await _cliFileManager.SaveAsync(fileInfo);
     }
-    
+
     private async Task AddRepositoryInterface(EntityInfo entityInfo)
     {
         var template = new IAggregateRepositoryTemplate()
@@ -75,4 +79,46 @@ public class AddAggregateCommand : AsyncCommand<AddAggregateSettings>
 
         await _cliFileManager.SaveAsync(fileInfo);
     }
+
+    #endregion
+
+    #region Application Types
+
+    private async Task AddApplicationTypes(EntityInfo entityInfo)
+    {
+        await AddCreateCommand(entityInfo);
+        await AddCreateCommandHandler(entityInfo);
+    }
+
+    private async Task AddCreateCommand(EntityInfo entityInfo)
+    {
+        var template = new CreateAggregateCommand()
+        {
+            EntityInfo = entityInfo
+        };
+
+        var content = template.TransformText();
+        var targetPath = $"{ApplicationStructure.Application}\\{entityInfo.PluralName}\\Commands\\Create";
+
+        var fileInfo = new CliFileInfo(template.Name, targetPath, content);
+
+        await _cliFileManager.SaveAsync(fileInfo);
+    }
+
+    private async Task AddCreateCommandHandler(EntityInfo entityInfo)
+    {
+        var template = new CreateAggregateCommandHandler()
+        {
+            EntityInfo = entityInfo
+        };
+
+        var content = template.TransformText();
+        var targetPath = $"{ApplicationStructure.Application}\\{entityInfo.PluralName}\\Commands\\Create";
+
+        var fileInfo = new CliFileInfo(template.Name, targetPath, content);
+
+        await _cliFileManager.SaveAsync(fileInfo);
+    }
+
+    #endregion
 }

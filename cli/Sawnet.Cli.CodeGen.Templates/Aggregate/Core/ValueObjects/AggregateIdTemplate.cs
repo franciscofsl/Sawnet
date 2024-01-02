@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Sawnet.Cli.CodeGen.Templates.Aggregate.ValueObjects
+namespace Sawnet.Cli.CodeGen.Templates.Aggregate.Core.ValueObjects
 {
     using Shared;
     using System;
@@ -16,7 +16,7 @@ namespace Sawnet.Cli.CodeGen.Templates.Aggregate.ValueObjects
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\ValueObjects\AggregateIdTemplate.tt"
+    #line 1 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Core\ValueObjects\AggregateIdTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class AggregateIdTemplate : AggregateIdTemplateBase
     {
@@ -28,56 +28,56 @@ namespace Sawnet.Cli.CodeGen.Templates.Aggregate.ValueObjects
         {
             this.Write("namespace ");
             
-            #line 3 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\ValueObjects\AggregateIdTemplate.tt"
+            #line 3 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Core\ValueObjects\AggregateIdTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ApplicationStructure.AppName));
             
             #line default
             #line hidden
             this.Write(".Core.");
             
-            #line 3 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\ValueObjects\AggregateIdTemplate.tt"
+            #line 3 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Core\ValueObjects\AggregateIdTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityInfo.PluralName));
             
             #line default
             #line hidden
             this.Write(".ValueObjects;\r\n\r\npublic record ");
             
-            #line 5 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\ValueObjects\AggregateIdTemplate.tt"
+            #line 5 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Core\ValueObjects\AggregateIdTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityInfo.IdType));
             
             #line default
             #line hidden
             this.Write(" : EntityId\r\n{\r\n    private ");
             
-            #line 7 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\ValueObjects\AggregateIdTemplate.tt"
+            #line 7 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Core\ValueObjects\AggregateIdTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityInfo.IdType));
             
             #line default
             #line hidden
             this.Write("()\r\n    {\r\n    }\r\n\r\n    public static ");
             
-            #line 11 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\ValueObjects\AggregateIdTemplate.tt"
+            #line 11 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Core\ValueObjects\AggregateIdTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityInfo.IdType));
             
             #line default
             #line hidden
             this.Write(" Create(Guid value)\r\n    {\r\n        return new ");
             
-            #line 13 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\ValueObjects\AggregateIdTemplate.tt"
+            #line 13 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Core\ValueObjects\AggregateIdTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityInfo.IdType));
             
             #line default
             #line hidden
             this.Write("\r\n        {\r\n            Value = value\r\n        };\r\n    }\r\n\r\n    public static explicit operator ");
             
-            #line 19 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\ValueObjects\AggregateIdTemplate.tt"
+            #line 19 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Core\ValueObjects\AggregateIdTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityInfo.IdType));
             
             #line default
             #line hidden
             this.Write("(Guid id) => Create(id);\r\n\r\n    public static implicit operator Guid(");
             
-            #line 21 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\ValueObjects\AggregateIdTemplate.tt"
+            #line 21 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Core\ValueObjects\AggregateIdTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityInfo.IdType));
             
             #line default
@@ -86,7 +86,7 @@ namespace Sawnet.Cli.CodeGen.Templates.Aggregate.ValueObjects
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 22 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\ValueObjects\AggregateIdTemplate.tt"
+        #line 22 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Core\ValueObjects\AggregateIdTemplate.tt"
 
     public EntityInfo EntityInfo { get; set; }
 

@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Sawnet.Cli.CodeGen.Templates.Aggregate
+namespace Sawnet.Cli.CodeGen.Templates.Aggregate.Application.Commands
 {
     using Shared;
     using System;
@@ -16,9 +16,9 @@ namespace Sawnet.Cli.CodeGen.Templates.Aggregate
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\IAggregateRepositoryTemplate.tt"
+    #line 1 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Application\Commands\CreateAggregateCommand.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class IAggregateRepositoryTemplate : IAggregateRepositoryTemplateBase
+    public partial class CreateAggregateCommand : CreateAggregateCommandBase
     {
 #line hidden
         /// <summary>
@@ -28,60 +28,54 @@ namespace Sawnet.Cli.CodeGen.Templates.Aggregate
         {
             this.Write("using ");
             
-            #line 3 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\IAggregateRepositoryTemplate.tt"
+            #line 3 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Application\Commands\CreateAggregateCommand.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ApplicationStructure.AppName));
             
             #line default
             #line hidden
             this.Write(".Core.");
             
-            #line 3 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\IAggregateRepositoryTemplate.tt"
+            #line 3 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Application\Commands\CreateAggregateCommand.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityInfo.PluralName));
             
             #line default
             #line hidden
-            this.Write(".ValueObjects;\r\nusing Sawnet.Core.Contracts;\r\n\r\nnamespace ");
+            this.Write(";\r\nusing Sawnet.Application.Cqrs.Commands;\r\n\r\nnamespace ");
             
-            #line 6 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\IAggregateRepositoryTemplate.tt"
+            #line 6 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Application\Commands\CreateAggregateCommand.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ApplicationStructure.AppName));
             
             #line default
             #line hidden
-            this.Write(".Core.");
+            this.Write(".Application.");
             
-            #line 6 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\IAggregateRepositoryTemplate.tt"
+            #line 6 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Application\Commands\CreateAggregateCommand.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityInfo.PluralName));
             
             #line default
             #line hidden
-            this.Write(";\r\n\r\npublic interface ");
+            this.Write(".Commands.Create;\r\n\r\npublic record ");
             
-            #line 8 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\IAggregateRepositoryTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(EntityInfo.RepoInterfaceType));
+            #line 8 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Application\Commands\CreateAggregateCommand.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(" : IRepository<");
+            this.Write(" : ICommand<");
             
-            #line 8 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\IAggregateRepositoryTemplate.tt"
+            #line 8 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Application\Commands\CreateAggregateCommand.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityInfo.SingularName));
             
             #line default
             #line hidden
-            this.Write(", ");
-            
-            #line 8 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\IAggregateRepositoryTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(EntityInfo.IdType));
-            
-            #line default
-            #line hidden
-            this.Write(">\r\n{\r\n}");
+            this.Write(">;");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 10 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\IAggregateRepositoryTemplate.tt"
+        #line 8 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Application\Commands\CreateAggregateCommand.tt"
 
     public EntityInfo EntityInfo { get; set; }
+    public string Name => $"Create{EntityInfo?.SingularName}Command";
 
         
         #line default
@@ -95,7 +89,7 @@ namespace Sawnet.Cli.CodeGen.Templates.Aggregate
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class IAggregateRepositoryTemplateBase
+    public class CreateAggregateCommandBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

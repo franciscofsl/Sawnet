@@ -1,0 +1,11 @@
+<#@ template language="C#" #>
+<#@ import namespace="Shared" #>
+using <#= ApplicationStructure.AppName #>.Core.<#= EntityInfo.PluralName #>;
+using Sawnet.Application.Cqrs.Commands;
+
+namespace <#= ApplicationStructure.AppName #>.Application.<#= EntityInfo.PluralName #>.Commands.Create;
+
+public record <#= Name #> : ICommand<<#= EntityInfo.SingularName #>>;<#+
+    public EntityInfo EntityInfo { get; set; }
+    public string Name => $"Create{EntityInfo?.SingularName}Command";
+#>
