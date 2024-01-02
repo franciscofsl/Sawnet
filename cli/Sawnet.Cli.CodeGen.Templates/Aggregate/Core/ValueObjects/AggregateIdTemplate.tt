@@ -2,7 +2,7 @@
 <#@ import namespace="Shared" #>
 namespace <#= ApplicationStructure.AppName #>.Core.<#= EntityInfo.PluralName #>.ValueObjects;
 
-public record <#= EntityInfo.IdType #> : EntityId
+public sealed record <#= EntityInfo.IdType #> : EntityId
 {
     private <#= EntityInfo.IdType #>()
     {

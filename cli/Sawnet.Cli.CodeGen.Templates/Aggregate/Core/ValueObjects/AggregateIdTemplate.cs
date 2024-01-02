@@ -40,7 +40,7 @@ namespace Sawnet.Cli.CodeGen.Templates.Aggregate.Core.ValueObjects
             
             #line default
             #line hidden
-            this.Write(".ValueObjects;\r\n\r\npublic record ");
+            this.Write(".ValueObjects;\r\n\r\npublic sealed record ");
             
             #line 5 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Core\ValueObjects\AggregateIdTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityInfo.IdType));
