@@ -40,39 +40,39 @@ namespace Sawnet.Cli.CodeGen.Templates.Aggregate.Application.Commands
             
             #line default
             #line hidden
-            this.Write(";\r\nusing Sawnet.Application.Cqrs.Commands;\r\n\r\nnamespace ");
+            this.Write(";\r\nusing Sawnet.Application.Cqrs.Commands;\r\nusing Sawnet.Core.Results;\r\n\r\nnamespace ");
             
-            #line 6 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Application\Commands\CreateAggregateCommand.tt"
+            #line 7 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Application\Commands\CreateAggregateCommand.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ApplicationStructure.AppName));
             
             #line default
             #line hidden
             this.Write(".Application.");
             
-            #line 6 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Application\Commands\CreateAggregateCommand.tt"
+            #line 7 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Application\Commands\CreateAggregateCommand.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityInfo.PluralName));
             
             #line default
             #line hidden
             this.Write(".Commands.Create;\r\n\r\npublic record ");
             
-            #line 8 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Application\Commands\CreateAggregateCommand.tt"
+            #line 9 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Application\Commands\CreateAggregateCommand.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(" : ICommand<");
+            this.Write(" : ICommand<Result<");
             
-            #line 8 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Application\Commands\CreateAggregateCommand.tt"
+            #line 9 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Application\Commands\CreateAggregateCommand.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityInfo.SingularName));
             
             #line default
             #line hidden
-            this.Write(">;");
+            this.Write(">>;");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 8 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Application\Commands\CreateAggregateCommand.tt"
+        #line 9 "C:\Users\Fran\source\Sawnet\cli\Sawnet.Cli.CodeGen.Templates\Aggregate\Application\Commands\CreateAggregateCommand.tt"
 
     public EntityInfo EntityInfo { get; set; }
     public string Name => $"Create{EntityInfo?.SingularName}Command";
