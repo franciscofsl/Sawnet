@@ -10,7 +10,7 @@ public class GuardClauseNotNull
     {
         var anyStringObject = "Testing";
 
-        var value = GuardClause.NotNull(anyStringObject, nameof(anyStringObject));
+        var value = Check.NotNull(anyStringObject, nameof(anyStringObject));
 
         value.Should().Be(anyStringObject);
     }
@@ -21,9 +21,9 @@ public class GuardClauseNotNull
         string anyStringObject = null;
 
         FluentActions
-            .Invoking(() => GuardClause.NotNull(anyStringObject, nameof(anyStringObject)))
+            .Invoking(() => Check.NotNull(anyStringObject, nameof(anyStringObject)))
             .Should()
             .ThrowExactly<ArgumentNullException>()
-            .WithMessage("Value cannot be null. (Parameter 'anyStringObject must not be null')");
+            .WithMessage("Value cannot be null. (Parameter 'anyStringObject')");
     }
 }

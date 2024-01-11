@@ -10,7 +10,7 @@ public class GuardClauseNotNullOrEmpty
     {
         var anyStringObject = "Testing";
 
-        var value = GuardClause.NotNullOrEmpty(anyStringObject, nameof(anyStringObject));
+        var value = Check.NotNullOrEmpty(anyStringObject, nameof(anyStringObject));
 
         value.Should().Be(anyStringObject);
     }
@@ -20,7 +20,7 @@ public class GuardClauseNotNullOrEmpty
     {
         var anyStringObject = "Testing";
 
-        var value = GuardClause.NotNullOrEmpty(anyStringObject, nameof(anyStringObject));
+        var value = Check.NotNullOrEmpty(anyStringObject, nameof(anyStringObject));
 
         value.Should().Be(anyStringObject);
     }
@@ -30,10 +30,10 @@ public class GuardClauseNotNullOrEmpty
     {
         string anyStringObject = null;
 
-        FluentActions.Invoking(() => GuardClause.NotNullOrEmpty(anyStringObject, nameof(anyStringObject)))
+        FluentActions.Invoking(() => Check.NotNullOrEmpty(anyStringObject, nameof(anyStringObject)))
             .Should()
             .Throw<ArgumentException>()
-            .WithMessage("Value cannot be null. (Parameter 'anyStringObject must not be null')");
+            .WithMessage("Value cannot be null. (Parameter 'anyStringObject')");
     }
 
     [Fact]
@@ -41,7 +41,7 @@ public class GuardClauseNotNullOrEmpty
     {
         var anyStringObject = string.Empty;
 
-        FluentActions.Invoking(() => GuardClause.NotNullOrEmpty(anyStringObject, nameof(anyStringObject)))
+        FluentActions.Invoking(() => Check.NotNullOrEmpty(anyStringObject, nameof(anyStringObject)))
             .Should()
             .Throw<ArgumentException>()
             .WithMessage("anyStringObject must not be empty");

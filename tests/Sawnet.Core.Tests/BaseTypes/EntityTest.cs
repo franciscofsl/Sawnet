@@ -3,36 +3,33 @@
 public class EntityTest
 {
     [Fact]
-    public void Constructor_WithValidId_Should_Set_Id()
+    public void Should_Clear_Domain_Events()
     {
-        var entityId = TestEntityId.Create(Guid.NewGuid());
+        var testEntity = TestEntity.Create(TestEntityId.Create(Guid.NewGuid()));
 
-        var aggregateRoot = new TestEntity(entityId);
+        testEntity.Events.Should().HaveCount(1);
 
-        aggregateRoot.Id.Should().Be(entityId);
-    }
+        testEntity.ClearDomainEvents();
 
-    [Fact]
-    public void Constructor_WithNullId_Should_Throw_ArgumentNullException()
-    {
-        Assert.Throws<ArgumentNullException>(() => new TestEntity(null));
-    }
-
-    [Fact]
-    public void Should_Create_Aggregate_Root_With_Empty_Builder()
-    {
-        var aggregateRoot = new TestEntity();
-        aggregateRoot.Should().NotBeNull();
+        testEntity.Events.Should().BeEmpty();
     }
 
     private class TestEntity : Entity<TestEntityId>
     {
-        public TestEntity()
+        private TestEntity()
         {
         }
 
-        public TestEntity(TestEntityId id) : base(id)
+        public static TestEntity Create(TestEntityId id)
         {
+            var testEntity = new TestEntity
+            {
+                Id = id
+            };
+
+            testEntity.RaiseDomainEvent(new TestDomainEvent());
+
+            return testEntity;
         }
     }
 

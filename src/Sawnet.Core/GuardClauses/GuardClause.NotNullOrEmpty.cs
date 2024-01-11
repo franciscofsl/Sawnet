@@ -1,6 +1,6 @@
 ﻿namespace Sawnet.Core.GuardClauses;
 
-public static partial class GuardClause
+public static partial class Check
 {
     public static string NotNullOrEmpty(string title, string name)
     {

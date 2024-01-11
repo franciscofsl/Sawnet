@@ -4,7 +4,7 @@ namespace Sawnet.Core.Contracts;
 
 public interface IRepository<TAggregateRoot, TEntityId>
     where TAggregateRoot : AggregateRoot<TEntityId>
-where TEntityId : EntityId
+    where TEntityId : EntityId
 {
     public Task<TAggregateRoot> GetAsync(TEntityId id);
 
