@@ -12,6 +12,6 @@ public abstract class Entity<TKey> where TKey : EntityId
 
     protected Entity(TKey id)
     {
-        Id = GuardClause.NotNull(id, nameof(id));
+        Id = Ensure.NotNull(id, nameof(id));
     }
 }

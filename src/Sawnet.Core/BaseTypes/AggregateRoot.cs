@@ -1,5 +1,4 @@
 ﻿using Sawnet.Core.Events;
-using Sawnet.Core.GuardClauses;
 
 namespace Sawnet.Core.BaseTypes;
 
