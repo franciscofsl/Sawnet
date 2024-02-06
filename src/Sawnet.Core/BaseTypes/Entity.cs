@@ -4,7 +4,7 @@ namespace Sawnet.Core.BaseTypes;
 
 public abstract class Entity<TKey> where TKey : EntityId
 {
-    public TKey Id { get; }
+    public TKey Id { get; protected init; }
 
     protected Entity()
     {
@@ -12,6 +12,6 @@ public abstract class Entity<TKey> where TKey : EntityId
 
     protected Entity(TKey id)
     {
-        Id = GuardClause.NotNull(id, nameof(id));
+        Id = Ensure.NotNull(id, nameof(id));
     }
 }

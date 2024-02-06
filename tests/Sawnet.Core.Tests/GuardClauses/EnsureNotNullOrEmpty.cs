@@ -1,16 +1,15 @@
 ﻿using Sawnet.Core.GuardClauses;
 
-
 namespace Sawnet.Core.Tests.GuardClauses;
 
-public class GuardClauseNotNullOrEmpty
+public class EnsureNotNullOrEmpty
 {
     [Fact]
     public void Should_Return_Not_Null_String()
     {
         var anyStringObject = "Testing";
 
-        var value = GuardClause.NotNullOrEmpty(anyStringObject, nameof(anyStringObject));
+        var value = Ensure.NotNullOrEmpty(anyStringObject, nameof(anyStringObject));
 
         value.Should().Be(anyStringObject);
     }
@@ -20,7 +19,7 @@ public class GuardClauseNotNullOrEmpty
     {
         var anyStringObject = "Testing";
 
-        var value = GuardClause.NotNullOrEmpty(anyStringObject, nameof(anyStringObject));
+        var value = Ensure.NotNullOrEmpty(anyStringObject, nameof(anyStringObject));
 
         value.Should().Be(anyStringObject);
     }
@@ -30,7 +29,7 @@ public class GuardClauseNotNullOrEmpty
     {
         string anyStringObject = null;
 
-        FluentActions.Invoking(() => GuardClause.NotNullOrEmpty(anyStringObject, nameof(anyStringObject)))
+        FluentActions.Invoking(() => Ensure.NotNullOrEmpty(anyStringObject, nameof(anyStringObject)))
             .Should()
             .Throw<ArgumentException>()
             .WithMessage("Value cannot be null. (Parameter 'anyStringObject must not be null')");
@@ -41,7 +40,7 @@ public class GuardClauseNotNullOrEmpty
     {
         var anyStringObject = string.Empty;
 
-        FluentActions.Invoking(() => GuardClause.NotNullOrEmpty(anyStringObject, nameof(anyStringObject)))
+        FluentActions.Invoking(() => Ensure.NotNullOrEmpty(anyStringObject, nameof(anyStringObject)))
             .Should()
             .Throw<ArgumentException>()
             .WithMessage("anyStringObject must not be empty");
