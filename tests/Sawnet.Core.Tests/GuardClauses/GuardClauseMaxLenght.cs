@@ -11,7 +11,7 @@ public class GuardClauseMaxLength
         var maxLength = 10;
         var name = "TestString";
 
-        var result = Check.MaxLength(value, maxLength, name);
+        var result = Ensure.HasMaxLength(value, maxLength, name);
 
         result.Should().Be(value);
     }
@@ -23,7 +23,7 @@ public class GuardClauseMaxLength
         var maxLength = 5;
         var name = "TestString";
 
-        var result = Check.MaxLength(value, maxLength, name);
+        var result = Ensure.HasMaxLength(value, maxLength, name);
 
         result.Should().Be(value);
     }
@@ -35,7 +35,7 @@ public class GuardClauseMaxLength
         var maxLength = 3;
         var name = "TestString";
 
-        FluentActions.Invoking(() => Check.MaxLength(value, maxLength, name))
+        FluentActions.Invoking(() => Ensure.HasMaxLength(value, maxLength, name))
             .Should()
             .ThrowExactly<ArgumentException>()
             .WithMessage($"{name} cannot exceed {maxLength} characters. (Parameter 'value')");
@@ -47,7 +47,7 @@ public class GuardClauseMaxLength
         string value = null;
         var maxLength = 5;
 
-        FluentActions.Invoking(() => Check.MaxLength(value, maxLength, "TestString"))
+        FluentActions.Invoking(() => Ensure.HasMaxLength(value, maxLength, "TestString"))
             .Should()
             .ThrowExactly<ArgumentNullException>()
             .WithMessage("Value cannot be null. (Parameter 'TestString')");
@@ -60,7 +60,7 @@ public class GuardClauseMaxLength
         var maxLength = -5;
         var name = "TestString";
 
-        FluentActions.Invoking(() => Check.MaxLength(value, maxLength, name))
+        FluentActions.Invoking(() => Ensure.HasMaxLength(value, maxLength, name))
             .Should()
             .ThrowExactly<ArgumentOutOfRangeException>()
             .WithMessage("MaxLength should be a non-negative value. (Parameter 'name')");

@@ -47,7 +47,7 @@ public class SawnetDbContext<TDbContext> : DbContext, IDbContext
     
     private async Task DispatchDomainEvents()
     {
-        var domainEventEntities = ChangeTracker.Entries<EntityWithDomainEvents>()
+        var domainEventEntities = ChangeTracker.Entries<WithDomainEvents>()
             .Select(po => po.Entity)
             .Where(po => po.Events.Any())
             .ToArray();

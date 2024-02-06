@@ -1,10 +1,17 @@
-﻿namespace Sawnet.Core.BaseTypes;
+﻿using Sawnet.Core.GuardClauses;
 
-public abstract class Entity<TKey> : EntityWithDomainEvents where TKey : EntityId
+namespace Sawnet.Core.BaseTypes;
+
+public abstract class Entity<TKey> : WithDomainEvents where TKey : EntityId
 {
+    public TKey Id { get; protected init; }
+
     protected Entity()
     {
     }
 
-    public TKey Id { get; protected init; }
+    protected Entity(TKey id)
+    {
+        Id = Ensure.NotNull(id, nameof(id));
+    }
 }
