@@ -22,8 +22,13 @@ public abstract class SawnetModule
 
     internal IReadOnlyList<SawnetModule> GetModules()
     {
-        var modulesToIncludeAttribute = GetType().GetCustomAttribute<ModulesToIncludeAttribute>();
+        var type = GetType();
+        
+        var modulesToIncludeAttribute = type.GetCustomAttributes(typeof(ModulesToIncludeAttribute), true);
 
-        return modulesToIncludeAttribute?.Modules ?? Enumerable.Empty<SawnetModule>().ToList();
+        return modulesToIncludeAttribute
+            .Cast<ModulesToIncludeAttribute>()
+            .SelectMany(_ => _.Modules)
+            .ToList();
     }
 }

@@ -1,6 +1,6 @@
 namespace Sawnet.Core.Modules;
 
-[AttributeUsage(AttributeTargets.Class)]
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
 public class ModulesToIncludeAttribute : Attribute
 {
     private readonly List<SawnetModule> _modules = new List<SawnetModule>();
