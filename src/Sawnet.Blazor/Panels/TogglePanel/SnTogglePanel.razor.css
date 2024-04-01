@@ -1,0 +1,41 @@
+﻿.panel {
+    margin-bottom: 10px;
+}
+
+.panel-header {
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-start; /* Aliniea el contenido a la izquierda */
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.panel-header:hover {
+    background-color: #f4f4f4;
+}
+
+.panel-content {
+    display: none;
+    padding: 10px;
+}
+
+.panel-content.show {
+    display: block;
+}
+
+.chevron {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    margin-right: 10px; /* Espacio entre el chevron y el título */
+}
+
+.chevron.up {
+    border-bottom: 5px solid black;
+}
+
+.chevron.down {
+    border-top: 5px solid black;
+}

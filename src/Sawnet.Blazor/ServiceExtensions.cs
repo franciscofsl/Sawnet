@@ -3,7 +3,7 @@ using Radzen;
 
 namespace Sawnet.Blazor;
 
-public static  class ServiceExtensions
+public static class ServiceExtensions
 {
     public static IServiceCollection AddSawnetBlazor(this IServiceCollection services)
     {
@@ -12,6 +12,7 @@ public static  class ServiceExtensions
         services.AddScoped<NotificationService>();
         services.AddScoped<TooltipService>();
         services.AddScoped<ContextMenuService>();
+
         return services;
     }
 }

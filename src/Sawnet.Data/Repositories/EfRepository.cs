@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using Sawnet.Core.BaseTypes;
 using Sawnet.Core.Contracts;
 
@@ -21,7 +22,19 @@ public class EfRepository<TAggregateRoot, TEntityId>
         var query = await GetQueryableAsync();
 
         return await query.FirstOrDefaultAsync(_ => _.Id == id);
-    } 
+    }
+
+    public async Task<List<TAggregateRoot>> GetListAsync(Expression<Func<TAggregateRoot, bool>> filter = null)
+    {
+        var query = await GetQueryableAsync();
+
+        if (filter is not null)
+        {
+            query = query.Where(filter);
+        }
+
+        return await query.ToListAsync();
+    }
 
     public async Task<TAggregateRoot> InsertAsync(TAggregateRoot entity, bool save = true)
     {
@@ -33,7 +46,7 @@ public class EfRepository<TAggregateRoot, TEntityId>
 
         return entity;
     }
-    
+
     public async Task UpdateAsync(TAggregateRoot entity, bool save = true)
     {
         DbContext.Set<TAggregateRoot>().Update(entity);
@@ -42,7 +55,7 @@ public class EfRepository<TAggregateRoot, TEntityId>
             await DbContext.SaveChangesAsync();
         }
     }
-    
+
     public async Task DeleteAsync(TAggregateRoot entity, bool save = true)
     {
         DbContext.Set<TAggregateRoot>().Remove(entity);

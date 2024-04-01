@@ -1,0 +1,32 @@
+﻿@using Radzen
+@inherits SnComponentBase
+
+<div class="sawnet-button">
+    <RadzenButton
+        Click="@(async (args) => await OnButtonClickedAsync(args))"
+        Text="@Text"
+        Icon="@Icon"
+        ButtonStyle="Style"
+        Size="Size"/>
+</div>
+
+@code {
+    [Parameter] public ButtonStyle Style { get; set; } = ButtonStyle.Primary;
+
+    [Parameter] public ButtonSize Size { get; set; } = ButtonSize.ExtraSmall;
+
+    [Parameter] public EventCallback OnClick { get; set; }
+
+    [Parameter] public string Icon { get; set; }
+
+    [Parameter] public string Text { get; set; }
+
+    private async Task OnButtonClickedAsync(MouseEventArgs args)
+    {
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync();
+        }
+    }
+
+}

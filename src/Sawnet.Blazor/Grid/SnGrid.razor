@@ -1,0 +1,88 @@
+﻿@typeparam TItem
+@typeparam TSetup where TSetup : GridSetup<TItem> where TItem : class
+@using Radzen
+@using Sawnet.Blazor.Buttons
+@inherits SnComponentBase
+
+<div class="sn-grid-container">
+    <div class="toolbar-container">
+        @Title
+        @if (OnCreateClicked.HasDelegate)
+        {
+            <SnButton Icon="add" Text="Common.Add" OnClick="@(async () => await OnCreateClickedAsync())"/>
+        }
+
+
+    </div>
+
+    <div class="grid-container">
+        <RadzenDataGrid @ref="_grid"
+                        TItem="TItem"
+                        SelectionMode="DataGridSelectionMode.Single"
+                        AllowRowSelectOnRowClick="true"
+                        LoadData="GetData"
+                        @bind-Value=@_selectedItems>
+            <Columns>
+
+                <RadzenDataGridColumn TItem="TItem"
+                                      Property="Id"
+                                      Filterable="false"
+
+                                      Visible="false">
+                </RadzenDataGridColumn>
+
+                @foreach (var column in Setup.Columns)
+                {
+                    <RadzenDataGridColumn TItem="TItem"
+                                          Property="@column.PropertyName"
+                                          Filterable="false"
+                                          Frozen="@column.Frozen"
+                                          Width="@column.Width"
+                                          Title="@column.DisplayName"
+                                          MinWidth="@column.MinWidth"
+                                          TextAlign="@column.TextAlign">
+                    </RadzenDataGridColumn>
+                }
+            </Columns>
+        </RadzenDataGrid>
+
+    </div>
+
+    <div> </div>
+</div>
+
+@code {
+    private IList<TItem> _selectedItems;
+    private RadzenDataGrid<TItem> _grid;
+
+    [Parameter] public string Title { get; set; }
+
+    [Parameter] public GridSetup<TItem> Setup { get; set; }
+
+    [Parameter] public Func<Task<GridData<TItem>>> GetDataFn { get; set; }
+
+    [Parameter] public EventCallback OnCreateClicked { get; set; }
+
+    public async Task RefreshAsync()
+    {
+        await GetData(null);
+    }
+
+    private async Task GetData(LoadDataArgs arg)
+    {
+        var items = await GetDataFn();
+        _grid.Data = items.Items;
+        StateHasChanged();
+    }
+
+    private async Task OnCreateClickedAsync()
+    {
+        Console.WriteLine("OnCreateClickedAsync clicked");
+        if (OnCreateClicked.HasDelegate)
+        {
+            await OnCreateClicked.InvokeAsync();
+        }
+    }
+
+
+}
