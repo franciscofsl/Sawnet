@@ -1,21 +1,27 @@
 ﻿.sn-grid-container {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 0fr 1fr 0fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+    grid-template-rows: auto 1fr auto;
+    max-height: calc(100vh - 145px);
+    height: calc(100vh - 145px);
 }
 
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 0fr;
     grid-template-rows: 1fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    max-height: calc(100vh - 150px);
+    grid-column-gap: 0;
+    grid-row-gap: 0;
 }
 
 .toolbar-container {
     display: flex;
     gap: 5px;
+    align-items: center;
+    padding: 5px;
+    flex-wrap: wrap;
+}
+
+.grid-container {
+
 }

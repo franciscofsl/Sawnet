@@ -2,7 +2,7 @@
 
 public partial class SnTogglePanel
 {
-    private bool collapsed = true;
+    private bool _collapsed = true;
     
     [Parameter] public string Text { get; set; }
     [Parameter] public string Icon { get; set; }
@@ -11,11 +11,11 @@ public partial class SnTogglePanel
 
     private void TogglePanel()
     {
-        collapsed = !collapsed;
+        _collapsed = !_collapsed;
     }
 
     private string PanelDisplayStyle()
     {
-        return collapsed ? "display: none;" : "display: block;";
+        return _collapsed ? "display: none;" : "display: block;";
     }
 }

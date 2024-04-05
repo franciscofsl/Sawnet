@@ -22,4 +22,10 @@
     <ItemGroup>
         <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
     </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Tabs\Tab.razor" />
+      <UpToDateCheckInput Remove="Tabs\TabPanel.razor" />
+      <UpToDateCheckInput Remove="Forms\SnModalForm.razor" />
+    </ItemGroup>
 </Project>

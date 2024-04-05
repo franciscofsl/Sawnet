@@ -1,11 +1,10 @@
 ﻿<div class="collapsible-panel">
     <div class="panel-header" @onclick="TogglePanel">
-        <span class="chevron @(collapsed ? "down" : "up")"></span>
+        <span class="chevron @(_collapsed ? "down" : "up")"></span>
         @Text
     </div>
 
     <div class="panel-content" style="@PanelDisplayStyle()">
         @Content
     </div>
-
 </div>
