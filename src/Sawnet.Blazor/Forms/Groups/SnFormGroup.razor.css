@@ -13,7 +13,7 @@
    with a minimum width of 100% or 500px, whichever is larger,
    and each column takes up equal space. */
 .one-column {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, max(500px, auto)), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, max(500px, 100%)), 1fr));
 }
 
 /* Sets the grid columns to repeat automatically fitting the container width,
@@ -21,5 +21,5 @@
    whichever is larger, and each column takes up equal space. */
 .two-columns {
     column-gap: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(min(95%, max(500px, 95% / 2)), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, max(500px, 95% / 2)), 1fr));
 }

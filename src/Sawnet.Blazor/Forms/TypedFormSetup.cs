@@ -13,7 +13,7 @@ public abstract class TypedFormSetup<TItem> where TItem : class
 
     public IReadOnlyList<FormGroup<TItem>> Groups => _groups.AsReadOnly();
 
-    protected FormColumns DefaultGroupColumns { get; set; } = FormColumns.One;
+    protected virtual FormColumns DefaultGroupColumns { get; set; } = FormColumns.One;
 
     protected FormGroup<TItem> AddGroup(GroupSetup groupSetup)
     {
