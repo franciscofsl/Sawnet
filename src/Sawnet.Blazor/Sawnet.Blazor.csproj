@@ -13,8 +13,10 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
-        <PackageReference Include="Radzen.Blazor" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
         <PackageReference Include="Scrutor" />
+        <PackageReference Include="Syncfusion.Blazor" />
+        <PackageReference Include="Syncfusion.Licensing" />
     </ItemGroup>
 
     <ItemGroup>

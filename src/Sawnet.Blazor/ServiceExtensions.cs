@@ -1,17 +1,17 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Radzen;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Syncfusion.Blazor;
+using Syncfusion.Licensing;
 
 namespace Sawnet.Blazor;
 
 public static class ServiceExtensions
 {
-    public static IServiceCollection AddSawnetBlazor(this IServiceCollection services)
+    public static IServiceCollection AddSawnetBlazor(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddRadzenComponents();
-        services.AddScoped<DialogService>();
-        services.AddScoped<NotificationService>();
-        services.AddScoped<TooltipService>();
-        services.AddScoped<ContextMenuService>();
+        var license = configuration["SyncfusionLicense"];
+        SyncfusionLicenseProvider.RegisterLicense(license);
+        services.AddSyncfusionBlazor();
 
         return services;
     }
