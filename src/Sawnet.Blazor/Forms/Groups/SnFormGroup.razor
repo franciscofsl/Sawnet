@@ -1,0 +1,10 @@
+﻿@inherits SnComponentBase
+@using Sawnet.Blazor.Forms.Fields
+@typeparam TItem where TItem : class
+
+<div class="section-container @GetNumberOfColumnsStyles(Group)">
+    @foreach (var field in Group.Fields)
+    {
+        <SnFormField TItem="TItem" Item="Item" Field="@field"/>
+    }
+</div>

@@ -1,0 +1,20 @@
+﻿@inherits Sawnet.Blazor.SnComponentBase
+@typeparam TItem where TItem : class
+@typeparam TSetup where TSetup : TypedFormSetup<TItem>
+@using Sawnet.Blazor.Accordion
+@using Sawnet.Blazor.Panels.TogglePanel;
+@using Sawnet.Blazor.Panels.TogglePanel;
+@using Syncfusion.Blazor.Popups
+@using Syncfusion.Blazor.Buttons
+
+<SnModalForm @ref="_modalForm"
+             Title="@Title"
+             OnPrimaryButtonClicked="SaveAsync"
+             Height="@Height"
+             Width="@Width"
+             PrimaryButtonIcon="fas fa-save"
+             PrimaryButtonText="Common.Save">
+    <Body>
+    <SnTypedForm @ref="_typedForm" TItem="TItem" TSetup="TSetup" Setup="Setup"/>
+    </Body>
+</SnModalForm>

@@ -1,0 +1,24 @@
+﻿@typeparam TItem where TItem : class
+@typeparam TSetup where TSetup : TypedFormSetup<TItem>
+@using Sawnet.Blazor.Forms.Groups
+@using Sawnet.Blazor.Panels.TogglePanel
+@inherits SnComponentBase
+
+<div>
+    @if (Setup is not null)
+    {
+        @if (Setup.DefaultGroup != null && Setup.DefaultGroup.Fields.Any())
+        {
+            <SnFormGroup TItem="TItem" Item="Item" Group="@Setup.DefaultGroup"/>
+        }
+
+        foreach (var group in Setup.Groups)
+        {
+            <SnTogglePanel Text="@group.Text" Icon="@group.Icon">
+                <Content>
+                    <SnFormGroup TItem="TItem" Item="Item" Group="@group"/>
+                </Content>
+            </SnTogglePanel>
+        }
+    }
+</div>

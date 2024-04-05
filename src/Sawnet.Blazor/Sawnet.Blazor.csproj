@@ -28,4 +28,8 @@
       <UpToDateCheckInput Remove="Tabs\TabPanel.razor" />
       <UpToDateCheckInput Remove="Forms\SnModalForm.razor" />
     </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Forms\Groups\SnFormGroup.razor" />
+    </ItemGroup>
 </Project>

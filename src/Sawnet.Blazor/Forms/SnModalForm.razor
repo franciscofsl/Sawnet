@@ -1,0 +1,20 @@
+﻿@using Syncfusion.Blazor.Popups
+@using Sawnet.Blazor.Buttons
+@inherits Sawnet.Blazor.SnComponentBase
+
+<SfDialog @ref="_dialog" Width="@Width" Height="@Height" IsModal="true" Visible="false" ShowCloseIcon="@ShowCloseButton">
+    <DialogTemplates>
+        <Header>@Title</Header>
+        <Content>
+            @Body
+        </Content>
+        <FooterTemplate>
+            <div class="modal-form-footer">
+                <SnButton Text="@PrimaryButtonText" Icon="@PrimaryButtonIcon" OnClick="@OnPrimaryButtonClickedAsync"/>
+                <SnButton Text="@SecondaryButtonText" Icon="@SecondaryButtonIcon" OnClick="@OnSecondaryButtonClickedAsync"/>
+            </div>
+        </FooterTemplate>
+    </DialogTemplates>
+    @* <DialogEvents OnOpen="@DialogOpen" Closed="@DialogClose" OnOverlayModalClick="@OverlayClick"></DialogEvents> *@
+    <DialogAnimationSettings Effect="@DialogEffect.Fade"></DialogAnimationSettings>
+</SfDialog>

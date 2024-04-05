@@ -1,0 +1,38 @@
+﻿@inherits SnComponentBase
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Calendars
+@using Sawnet.Blazor.Forms.Fields.Types
+@using System.Globalization
+@typeparam TItem where TItem : class
+
+<div class="form-field @(Field.FullSpan ? "wide" : string.Empty) @(Field.LabelPosition is LabelPosition.Top ? "label-top" : string.Empty)">
+    <div class="form-field-label" style=" @(Field.LabelPosition is LabelPosition.Top ? "align-self: flex-start;" : string.Empty)">
+        <label>@Field.DisplayName</label>
+    </div>
+    <div style="width: 100%;">
+        @if (Field.Type is FieldType.Text)
+        {
+            <SfTextBox FloatLabelType="@FloatLabelType.Never"
+                       ValueChanged="(value) => OnTextBoxValueChanged(value, Field)">
+            </SfTextBox>
+        }
+        else if (Field is DateOnlyField dateFormField)
+        {
+            <SfDatePicker TValue="DateTime?"
+                          FullScreen="true"
+                          ShowClearButton="true"
+                          Min="@(dateFormField.Min ?? DateTime.MinValue)"
+                          Max="@(dateFormField.Max ?? DateTime.MaxValue)"
+                          Format="@(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern)"
+                          ValueChanged="(args) => OnDateOnlyValueChanged(args, Field)"/>
+        }
+        else if (Field is ColorField colorField)
+        {
+            <SfColorPicker
+                ShowButtons="false"
+                Mode="ColorPickerMode.Picker"
+                ModeSwitcher="false"
+                ValueChanged="(value) => OnColorValueChanged(value, Field)"/>
+        }
+    </div>
+</div>
