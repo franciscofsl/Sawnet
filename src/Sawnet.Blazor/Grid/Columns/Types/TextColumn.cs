@@ -1,8 +1,6 @@
-﻿namespace Sawnet.Blazor.Grid.Columns;
+﻿namespace Sawnet.Blazor.Grid.Columns.Types;
 
 public class TextColumn : ColumnSetup
 {
     public override ColumnType Type => ColumnType.Text;
-
-    public bool Visible { get; set; } = true;
 }

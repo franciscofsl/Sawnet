@@ -1,4 +1,5 @@
-﻿using Sawnet.Blazor.Forms.Fields;
+﻿using Sawnet.Blazor.Common;
+using Sawnet.Blazor.Forms.Fields;
 
 namespace Sawnet.Blazor.Forms.Groups;
 
@@ -10,17 +11,13 @@ public partial class SnFormGroup<TItem>
 
     private void OnTextBoxValueChanged(string value, FormField field)
     {
-        var type = typeof(TItem);
-
-        var property = type.GetProperty(field.PropertyName);
-
-        property?.SetValue(Item, value);
+        Item?.SetPropertyValue(field.PropertyName, value);
     }
 
     private string GetNumberOfColumnsStyles(FormGroup<TItem> group)
     {
-        return group.Columns is FormColumns.One 
-            ? "one-column" 
+        return group.Columns is FormColumns.One
+            ? "one-column"
             : "two-columns";
     }
 }

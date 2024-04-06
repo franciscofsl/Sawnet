@@ -1,7 +1,7 @@
 ﻿@inherits SnComponentBase
 
 <div class="sawnet-button">
-    <SfButton CssClass="e-flat"
+    <SfButton CssClass="@($"e-flat {GetButtonStyle()}")"
               Content="@Text"
               @onclick="OnButtonClickedAsync"
               Disabled="@Disabled"
@@ -46,14 +46,5 @@
         return IsSmall ? $"{baseStyle} e-small" : baseStyle;
     }
 
-    public enum ButtonStyle
-    {
-        Flat,
-        OutLine,
-        Success,
-        Warning,
-        Danger,
-        Info,
-    }
 
 }

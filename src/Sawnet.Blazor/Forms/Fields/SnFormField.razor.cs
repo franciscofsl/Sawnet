@@ -7,6 +7,24 @@ public partial class SnFormField<TItem>
 
     [Parameter] public FormField Field { get; set; }
 
+    private string GetTextBoxValue(FormField field)
+    {
+        var type = typeof(TItem);
+
+        var property = type.GetProperty(field.PropertyName);
+
+        return property?.GetValue(Item)?.ToString();
+    }
+
+    private DateTime? GetDateTimeValue(FormField field)
+    {
+        var type = typeof(TItem);
+
+        var property = type.GetProperty(field.PropertyName);
+
+        return property?.GetValue(Item) as DateTime?;
+    }
+
     private void OnTextBoxValueChanged(string value, FormField field)
     {
         var type = typeof(TItem);
@@ -31,7 +49,6 @@ public partial class SnFormField<TItem>
 
         var property = type.GetProperty(field.PropertyName);
 
-        
 
         property?.SetValue(Item, value);
         _color = value;

@@ -1,9 +1,7 @@
 ﻿@typeparam TItem where TItem : class
-@typeparam TSetup where TSetup : GridSetup<TItem> 
+    @typeparam TSetup where TSetup : GridSetup<TItem> 
 @using Sawnet.Blazor.Buttons
-@using System.Collections.ObjectModel
 @using Sawnet.Blazor.Grid.Columns
-@using SelectionType = Syncfusion.Blazor.Grids.SelectionType
 @inherits SnComponentBase
 
 <div class="sn-grid-container">
@@ -17,11 +15,21 @@
         }
         @if (OnEditClicked.HasDelegate)
         {
-            <SnButton Icon="fas fa-pen" Text="Common.Edit" OnClick="@(async () => await OnEditClickedAsync())"/>
+            <SnButton
+                Icon="fas fa-pen"
+                Text="Common.Edit"
+                Style="@ButtonStyle.Info"
+                Disabled="@(SelectedItem is null)"
+                OnClick="@(async () => await OnEditClickedAsync())"/>
         }
         @if (OnDeleteClicked.HasDelegate)
         {
-            <SnButton Icon="fas fa-trash-alt" Text="Common.Delete" OnClick="@(async () => await OnDeleteClickedAsync())"/>
+            <SnButton
+                Icon="fas fa-trash-alt"
+                Text="Common.Delete"
+                Style="@ButtonStyle.Danger"
+                Disabled="@(SelectedItem is null)"
+                OnClick="@(async () => await OnDeleteClickedAsync())"/>
         }
     </div>
     <div class="grid-container">
@@ -33,28 +41,21 @@
             AllowPaging="true"
             Width="100%"
             RowHeight="30">
-            <GridSelectionSettings Type="GetSelectionType()" />
-            <GridPageSettings @ref="_pageSettings" PageSize="25" />
-            <GridEvents RowDropped="OnSelectionChangedAsync" 
-                        RowSelected="OnSelectionChangedAsync" 
-                        RowDeselected="OnSelectionChangedAsync" TValue="TItem" />
+            <GridSelectionSettings Type="GetSelectionType()"/>
+            <GridPageSettings @ref="_pageSettings" PageSize="25"/>
+            <GridEvents
+                RowDropped="OnSelectionChangedAsync"
+                RowSelected="OnSelectionChangedAsync"
+                RowDeselected="OnSelectionChangedAsync"
+                OnRecordDoubleClick="(args) => OnEditClickedAsync(args.RowData)"
+                TValue="TItem"/>
 
             <GridColumns>
                 @if (Setup != null)
                 {
                     @foreach (var column in Setup.Columns)
                     {
-                        if (column is TextColumn textGridColumn)
-                        {
-                            <GridColumn
-                                Field="@textGridColumn.PropertyName"
-                                HeaderText="@textGridColumn.DisplayName"
-                                TextAlign="@textGridColumn.TextAlign"
-                                Visible="textGridColumn.Visible"
-                                IsFrozen="column.Freeze"
-                                MinWidth="@column.Width"
-                                Width="@column.Width"/>
-                        }
+                        <SnColumn TItem="TItem" Setup="@column"/>
                     }
                 }
             </GridColumns>

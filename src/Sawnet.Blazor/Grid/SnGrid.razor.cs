@@ -28,6 +28,8 @@ public partial class SnGrid<TItem, TSetup> : SnComponentBase
 
     [Parameter] public EventCallback OnSelectionChanged { get; set; }
 
+    public TItem SelectedItem => _grid?.SelectedRecords.FirstOrDefault();
+
     public async Task Refresh()
     {
         await GetData();
@@ -76,11 +78,12 @@ public partial class SnGrid<TItem, TSetup> : SnComponentBase
         }
     }
 
-    private async Task OnEditClickedAsync()
+    private async Task OnEditClickedAsync(TItem item = null)
     {
         if (OnEditClicked.HasDelegate)
         {
-            await OnEditClicked.InvokeAsync();
+            item ??= SelectedItem;
+            await OnEditClicked.InvokeAsync(item);
         }
     }
 
@@ -88,7 +91,7 @@ public partial class SnGrid<TItem, TSetup> : SnComponentBase
     {
         if (OnDeleteClicked.HasDelegate)
         {
-            await OnDeleteClicked.InvokeAsync();
+            await OnDeleteClicked.InvokeAsync(SelectedItem);
         }
     }
 }

@@ -1,0 +1,32 @@
+﻿@typeparam TItem where TItem : class
+@using Sawnet.Blazor.Grid.Columns.Templates
+@using Sawnet.Blazor.Grid.Columns.Types
+@inherits SnComponentBase
+
+<div class="sn-grid-column">
+    @if (Setup != null)
+    {
+        <GridColumn
+            Field="@Setup.PropertyName"
+            HeaderText="@Setup.DisplayName"
+            TextAlign="@Setup.TextAlign"
+            Visible="Setup.Visible"
+            IsFrozen="Setup.Freeze"
+            MinWidth="@Setup.MinWidth"
+            Width="@Setup.Width">
+            <Template>
+                @{
+                    var item = context as TItem;
+                    if (Setup is TextColumn textColumn)
+                    {
+                        <SnTextColumnTemplate Column="@textColumn" Item="@item"/>
+                    }
+                    else if (Setup is DateColumn dateColumn)
+                    {
+                        <SnDateTimeColumnTemplate Column="@dateColumn" Item="@item"/>
+                    }
+                }
+            </Template>
+        </GridColumn>
+    }
+</div>

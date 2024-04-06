@@ -13,6 +13,7 @@
         @if (Field.Type is FieldType.Text)
         {
             <SfTextBox FloatLabelType="@FloatLabelType.Never"
+                       Value="@GetTextBoxValue(Field)"
                        ValueChanged="(value) => OnTextBoxValueChanged(value, Field)">
             </SfTextBox>
         }
@@ -20,6 +21,7 @@
         {
             <SfDatePicker TValue="DateTime?"
                           FullScreen="true"
+                          Value="@GetDateTimeValue(Field)"
                           ShowClearButton="true"
                           Min="@(dateFormField.Min ?? DateTime.MinValue)"
                           Max="@(dateFormField.Max ?? DateTime.MaxValue)"
@@ -30,6 +32,7 @@
         {
             <SfColorPicker
                 ShowButtons="false"
+                Value="@GetTextBoxValue(Field)"
                 Mode="ColorPickerMode.Picker"
                 ModeSwitcher="false"
                 ValueChanged="(value) => OnColorValueChanged(value, Field)"/>
