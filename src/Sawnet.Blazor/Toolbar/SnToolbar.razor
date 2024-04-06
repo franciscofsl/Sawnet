@@ -1,0 +1,22 @@
+﻿@inherits SnComponentBase
+
+<div class="sawnet-toolbar">
+    <SfToolbar OverflowMode="OverflowMode.Popup" Width="100%">
+        <ToolbarItems>
+            @if (!string.IsNullOrEmpty(Title))
+            {
+                <ToolbarItem Align="ItemAlign.Left" Type="ItemType.Separator" OnClick="EventCallback.Empty">
+                    <Template>
+                        <span class="toolbar-title">@Title</span>
+                    </Template>
+                </ToolbarItem>
+                <SnToolbarSeparator/>
+            }
+
+            @if (Actions != null)
+            {
+                @Actions
+            }
+        </ToolbarItems>
+    </SfToolbar>
+</div>

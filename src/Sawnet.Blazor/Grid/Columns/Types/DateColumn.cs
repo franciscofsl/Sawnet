@@ -6,9 +6,3 @@ public class DateColumn : ColumnSetup
 
     public DateFormat Format { get; set; }
 }
-
-public enum DateFormat
-{
-    DateOnly,
-    DateAndHour
-}
