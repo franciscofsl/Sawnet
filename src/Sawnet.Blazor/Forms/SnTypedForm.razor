@@ -1,24 +1,26 @@
 ﻿@typeparam TItem where TItem : class
-@typeparam TSetup where TSetup : TypedFormSetup<TItem>
 @using Sawnet.Blazor.Forms.Groups
 @using Sawnet.Blazor.Panels.TogglePanel
+@using Sawnet.Blazor.Forms.Configurators
 @inherits SnComponentBase
 
 <div>
-    @if (Setup is not null)
+    @if (Configuration != null)
     {
-        @if (Setup.DefaultGroup != null && Setup.DefaultGroup.Fields.Any())
+        foreach (var group in Configuration.Groups)
         {
-            <SnFormGroup TItem="TItem" Item="Item" Group="@Setup.DefaultGroup"/>
-        }
-
-        foreach (var group in Setup.Groups)
-        {
-            <SnTogglePanel Text="@group.Text" Icon="@group.Icon">
-                <Content>
-                    <SnFormGroup TItem="TItem" Item="Item" Group="@group"/>
-                </Content>
-            </SnTogglePanel>
+            if (group.Collapsible)
+            {
+                <SnTogglePanel Text="@group.Title" Icon="@group.Icon">
+                    <Content>
+                        <SnFormGroup TItem="TItem" Item="Item" Group="@group"/>
+                    </Content>
+                </SnTogglePanel>
+            }
+            else
+            {
+                <SnFormGroup TItem="TItem" Item="Item" Group="@group"/>
+            }
         }
     }
 </div>

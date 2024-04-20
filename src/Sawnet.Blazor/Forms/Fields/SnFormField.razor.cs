@@ -1,8 +1,13 @@
-﻿namespace Sawnet.Blazor.Forms.Fields;
+﻿using Sawnet.Blazor.Common;
+using Sawnet.Blazor.Forms.Fields.Types;
+using Sawnet.Shared;
+
+namespace Sawnet.Blazor.Forms.Fields;
 
 public partial class SnFormField<TItem>
 {
     private string _color;
+
     [Parameter] public TItem Item { get; set; }
 
     [Parameter] public FormField Field { get; set; }
@@ -25,32 +30,35 @@ public partial class SnFormField<TItem>
         return property?.GetValue(Item) as DateTime?;
     }
 
-    private void OnTextBoxValueChanged(string value, FormField field)
+    private void OnValueChanged(object value, FormField selectableField)
     {
-        var type = typeof(TItem);
-
-        var property = type.GetProperty(field.PropertyName);
-
-        property?.SetValue(Item, value);
+        Item.SetPropertyValue(selectableField.PropertyName, value);
     }
 
-    private void OnDateOnlyValueChanged(object value, FormField field)
+    private async Task<IEnumerable<object>> GetComboValues(string searchTerm,
+        FormField field)
     {
-        var type = typeof(TItem);
+        var filter = new SelectableItemFilter();
 
-        var property = type.GetProperty(field.PropertyName);
-
-        property?.SetValue(Item, value);
+        return field switch
+        {
+            SelectableField<int> selectableFieldAsInt => await GetComboItems(selectableFieldAsInt, filter),
+            SelectableField<Guid> selectableFieldAsGuid => await GetComboItems(selectableFieldAsGuid, filter),
+            _ => Enumerable.Empty<object>()
+        };
     }
 
-    private void OnColorValueChanged(string value, FormField field)
+    private static async Task<IEnumerable<object>> GetComboItems<T>(SelectableField<T> selectableFieldAsInt,
+        SelectableItemFilter filter)
     {
-        var type = typeof(TItem);
+        var result = await selectableFieldAsInt.SourceFn(filter);
+        return result.Items;
+    }
 
-        var property = type.GetProperty(field.PropertyName);
+    private ISelectableItem GetComboValue(FormField selectableField)
+    {
+        var propertyValue = Item?.GetPropertyValue(selectableField.PropertyName);
 
-
-        property?.SetValue(Item, value);
-        _color = value;
+        return propertyValue as ISelectableItem;
     }
 }

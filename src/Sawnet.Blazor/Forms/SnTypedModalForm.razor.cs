@@ -1,12 +1,12 @@
-﻿namespace Sawnet.Blazor.Forms;
+﻿using Sawnet.Blazor.Forms.Configurators;
 
-public partial class SnTypedModalForm<TItem, TSetup>
-{ 
-    private SnTypedForm<TItem, TSetup> _typedForm;
+namespace Sawnet.Blazor.Forms;
+
+public partial class SnTypedModalForm<TItem>
+{
+    private SnTypedForm<TItem> _typedForm;
     private SnModalForm _modalForm;
 
-    [Parameter] public TSetup Setup { get; set; }
-    
     [Parameter] public string Title { get; set; }
 
     [Parameter] public EventCallback<TItem> OnSaveClicked { get; set; }
@@ -14,7 +14,9 @@ public partial class SnTypedModalForm<TItem, TSetup>
     [Parameter] public string Width { get; set; } = "auto";
 
     [Parameter] public string Height { get; set; } = "auto";
-    
+
+    [Parameter] public FormConfiguration<TItem> Configuration { get; set; }
+
     public Task ShowAsync()
     {
         return _modalForm.ShowAsync();

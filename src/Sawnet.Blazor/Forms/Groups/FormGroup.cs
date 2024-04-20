@@ -13,11 +13,13 @@ public class FormGroup<TItem> where TItem : class
         internal set => _fields = value.ToList();
     }
 
-    public string Text { get; set; }
+    public string Title { get; set; }
 
     public string Icon { get; set; }
 
     public FormColumns Columns { get; set; } = FormColumns.Two;
+    
+    public bool Collapsible { get; set; }
 
     public FormGroup<TItem> AddField<TProperty>(Expression<Func<TItem, TProperty>> fieldExpression, FormField formField)
     {

@@ -3,6 +3,8 @@
 @using Syncfusion.Blazor.Calendars
 @using Sawnet.Blazor.Forms.Fields.Types
 @using System.Globalization
+@using Sawnet.Shared
+@using Syncfusion.Blazor.DropDowns
 @typeparam TItem where TItem : class
 
 <div class="form-field @(Field.FullSpan ? "wide" : string.Empty) @(Field.LabelPosition is LabelPosition.Top ? "label-top" : string.Empty)">
@@ -14,7 +16,7 @@
         {
             <SfTextBox FloatLabelType="@FloatLabelType.Never"
                        Value="@GetTextBoxValue(Field)"
-                       ValueChanged="(value) => OnTextBoxValueChanged(value, Field)">
+                       ValueChanged="(value) => OnValueChanged(value, Field)">
             </SfTextBox>
         }
         else if (Field is DateOnlyField dateFormField)
@@ -26,7 +28,7 @@
                           Min="@(dateFormField.Min ?? DateTime.MinValue)"
                           Max="@(dateFormField.Max ?? DateTime.MaxValue)"
                           Format="@(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern)"
-                          ValueChanged="(args) => OnDateOnlyValueChanged(args, Field)"/>
+                          ValueChanged="(args) => OnValueChanged(args, Field)"/>
         }
         else if (Field is ColorField colorField)
         {
@@ -35,7 +37,15 @@
                 Value="@GetTextBoxValue(Field)"
                 Mode="ColorPickerMode.Picker"
                 ModeSwitcher="false"
-                ValueChanged="(value) => OnColorValueChanged(value, Field)"/>
+                ValueChanged="(value) => OnValueChanged(value, Field)"/>
+        }
+        else if (Field.Type is FieldType.Selectable)
+        {
+            <SnComboBox TItem="object" 
+                        SelectedItem="@GetComboValue(Field)"
+                        GetDataFn="(args) => GetComboValues(args, Field)"
+                        PropertyToShow="@(nameof(ISelectableItem.Name))"
+                        ValueChanged="(args) => OnValueChanged(args, Field)"></SnComboBox>
         }
     </div>
 </div>

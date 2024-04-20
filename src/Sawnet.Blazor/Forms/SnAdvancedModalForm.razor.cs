@@ -1,11 +1,13 @@
-﻿namespace Sawnet.Blazor.Forms;
+﻿using Sawnet.Blazor.Forms.Configurators;
 
-public partial class SnAdvancedModalForm<TItem, TSetup>
+namespace Sawnet.Blazor.Forms;
+
+public partial class SnAdvancedModalForm<TItem> where TItem : class
 {
-    private SnTypedForm<TItem, TSetup> _typedForm;
+    private SnTypedForm<TItem> _typedForm;
     private SnModalForm _modalForm;
 
-    [Parameter] public TSetup Setup { get; set; }
+    [Parameter] public FormConfiguration<TItem> Configuration { get; set; }
 
     [Parameter] public string Title { get; set; }
 

@@ -1,9 +1,11 @@
-﻿namespace Sawnet.Blazor.Forms;
+﻿using Sawnet.Blazor.Forms.Configurators;
 
-public partial class SnTypedForm<TItem, TSetup>
+namespace Sawnet.Blazor.Forms;
+
+public partial class SnTypedForm<TItem> where TItem : class
 {
-    [Parameter] public TSetup Setup { get; set; }
-
     [Parameter]
     public TItem Item { get; set; } = Activator.CreateInstance<TItem>();
+    
+    [Parameter] public FormConfiguration<TItem> Configuration { get; set; }
 }

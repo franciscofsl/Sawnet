@@ -32,4 +32,8 @@
     <ItemGroup>
       <AdditionalFiles Include="Forms\Groups\SnFormGroup.razor" />
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Sawnet.Shared\Sawnet.Shared.csproj" />
+    </ItemGroup>
 </Project>
