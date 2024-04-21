@@ -1,11 +1,13 @@
 ﻿using Sawnet.Blazor.Forms.Configurators;
+using Syncfusion.Blazor.Popups;
 
 namespace Sawnet.Blazor.Forms;
 
 public partial class SnAdvancedModalForm<TItem> where TItem : class
 {
     private SnTypedForm<TItem> _typedForm;
-    private SnModalForm _modalForm;
+    private bool _isRightPanelVisible = false;
+    private SfDialog _dialog;
 
     [Parameter] public FormConfiguration<TItem> Configuration { get; set; }
 
@@ -15,21 +17,27 @@ public partial class SnAdvancedModalForm<TItem> where TItem : class
 
     [Parameter] public Func<Guid, Task<TItem>> OnGetItemFn { get; set; }
 
-    [Parameter] public string Width { get; set; } = "auto";
-
-    [Parameter] public string Height { get; set; } = "auto";
+    [Parameter] public EventCallback<TItem> OnDeleteClicked { get; set; }
+    
+    [Parameter] public RenderFragment Insight { get; set; }
+    
+    [Parameter] public RenderFragment<TItem> LeftToolbarItems { get; set; }
+    
+    [Parameter] public RenderFragment<TItem> RightToolbarItems { get; set; }
 
     public TItem Item { get; private set; }
+
+    private string RightPanelClass => _isRightPanelVisible ? "visible" : string.Empty;
 
     public async Task ShowAsync(Guid id)
     {
         Item = await GetEntityAsync(id);
-        await _modalForm.ShowAsync();
+        await _dialog.ShowAsync();
     }
 
     public Task CloseAsync()
     {
-        return _modalForm.CloseAsync();
+        return _dialog.HideAsync();
     }
 
     private async Task SaveAsync()
@@ -40,8 +48,22 @@ public partial class SnAdvancedModalForm<TItem> where TItem : class
         }
     }
 
+    private async Task DeleteAsync()
+    {
+        if (OnDeleteClicked.HasDelegate)
+        {
+            await OnDeleteClicked.InvokeAsync(_typedForm.Item);
+            await CloseAsync();
+        }
+    }
+
     private async Task<TItem> GetEntityAsync(Guid id)
     {
         return await OnGetItemFn(id);
+    }
+
+    private void ToggleRightPanel()
+    {
+        _isRightPanelVisible = !_isRightPanelVisible;
     }
 }

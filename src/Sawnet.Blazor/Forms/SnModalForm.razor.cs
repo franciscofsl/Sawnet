@@ -27,6 +27,10 @@ public partial class SnModalForm
     [Parameter] public EventCallback OnSecondaryButtonClicked { get; set; }
 
     [Parameter] public bool ShowCloseButton { get; set; } = true;
+    
+    [Parameter] public RenderFragment<string> Header { get; set; }
+    
+    [Parameter] public bool HasFooter { get; set; }
 
     public Task CloseAsync()
     {

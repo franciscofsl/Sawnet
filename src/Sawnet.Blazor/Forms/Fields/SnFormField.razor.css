@@ -9,10 +9,18 @@
 }
 
 .wide {
-    
+
 }
 
 .form-field-label {
-    max-width: 200px;
-    width: 200px;
+}
+
+.field {
+    min-width: 300px;
+}
+
+.separator {
+    border-bottom: 2px dotted lightgray;
+    margin: 0 5px;
+    width: 100%;
 }

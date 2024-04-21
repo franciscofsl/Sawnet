@@ -11,7 +11,13 @@
     <div class="form-field-label" style=" @(Field.LabelPosition is LabelPosition.Top ? "align-self: flex-start;" : string.Empty)">
         <label>@Field.DisplayName</label>
     </div>
-    <div style="width: 100%;">
+
+    @if (Field.LabelPosition is LabelPosition.Left)
+    {
+        <div class="separator"></div>
+    }
+
+    <div class="field">
         @if (Field.Type is FieldType.Text)
         {
             <SfTextBox FloatLabelType="@FloatLabelType.Never"
@@ -41,11 +47,12 @@
         }
         else if (Field.Type is FieldType.Selectable)
         {
-            <SnComboBox TItem="object" 
+            <SnComboBox TItem="object"
                         SelectedItem="@GetComboValue(Field)"
                         GetDataFn="(args) => GetComboValues(args, Field)"
                         PropertyToShow="@(nameof(ISelectableItem.Name))"
-                        ValueChanged="(args) => OnValueChanged(args, Field)"></SnComboBox>
+                        ValueChanged="(args) => OnValueChanged(args, Field)">
+            </SnComboBox>
         }
     </div>
 </div>

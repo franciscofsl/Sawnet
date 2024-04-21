@@ -1,0 +1,128 @@
+﻿.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+button.save {
+    color: #5BDA7D;
+    border-color: #5BDA7D;
+}
+
+button.save:hover {
+    background-color: #5BDA7D;
+    color: white;
+}
+
+button.delete {
+    color: #F15454;
+    border-color: #F15454;
+}
+
+button.delete:hover {
+    background-color: #F15454;
+    color: white;
+}
+
+.center-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.back-button-container {
+    flex-grow: 0;
+}
+
+button.save i {
+    color: #5BDA7D;
+}
+
+button.save:hover i {
+    color: white;
+}
+
+button.delete i {
+    color: #F15454;
+}
+
+button.delete:hover i {
+    color: white;
+}
+
+.form-title {
+    font-size: smaller;
+    font-weight: 400;
+    color: #e0e0e0;
+}
+
+.entity-description {
+    font-size: x-large;
+    font-weight: 400;
+}
+
+.form-body-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.body-toolbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-top: 1px solid #E1E1E1;
+    border-bottom: 1px solid #E1E1E1;
+}
+
+.toolbar-left-items {
+    display: flex;
+    align-items: center;
+}
+
+.toolbar-right-items {
+    display: flex;
+    align-items: center;
+}
+
+.form-body {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 250px);
+}
+
+.main-panel {
+    flex: 1;
+    overflow-y: auto;
+    height: auto;
+}
+
+.insight {
+    width: 500px;
+    overflow-y: auto;
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+    display: none;
+    height: auto;
+    padding: 20px;
+}
+
+.visible {
+    opacity: 1;
+    display: block;
+}
