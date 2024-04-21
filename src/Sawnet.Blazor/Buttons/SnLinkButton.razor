@@ -1,0 +1,13 @@
+﻿<div class="clickable-button" @onclick="HandleClick">
+    @if (!string.IsNullOrEmpty(Icon))
+    {
+        <div class="icon-container" style="background-color: @IconColor;">
+            <i class="@Icon"></i>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(Text))
+    {
+        <span class="button-text">@Text</span>
+    }
+</div>

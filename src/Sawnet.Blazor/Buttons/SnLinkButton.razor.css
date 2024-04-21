@@ -1,0 +1,23 @@
+﻿.clickable-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: white;
+    margin-right: 8px;
+}
+
+.button-text {
+    color: black;
+    font-size: 14px;
+}
