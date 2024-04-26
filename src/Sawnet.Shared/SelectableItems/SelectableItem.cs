@@ -1,4 +1,6 @@
 ﻿namespace Sawnet.Shared.SelectableItems;
+
+[ExcludeFromCodeCoverage]
 public class SelectableItem : SelectableItem<Guid>
 {
     public SelectableItem()
@@ -7,6 +9,7 @@ public class SelectableItem : SelectableItem<Guid>
     }
 }
 
+[ExcludeFromCodeCoverage]
 public class SelectableItem<TId> : ISelectableItem
 {
     public SelectableItem()

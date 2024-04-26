@@ -1,3 +1,7 @@
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Sawnet.Core.Tests")]
+
 namespace Sawnet.Shared.Modules;
 
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]

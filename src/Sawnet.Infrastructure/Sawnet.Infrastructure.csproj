@@ -7,13 +7,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Sawnet.Core\Sawnet.Core.csproj" />
+      <ProjectReference Include="..\Sawnet.Data\Sawnet.Data.csproj" />
     </ItemGroup>
     
     <ItemGroup>
-        <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <Folder Include="Data\" />
+      <PackageReference Include="Quartz" />
+      <PackageReference Include="Quartz.Extensions.Hosting" />
     </ItemGroup>
 </Project>

@@ -9,7 +9,7 @@ public class DomainEventPublisher : IDomainEventPublisher
         _serviceProvider = serviceProvider;
     }
 
-    public async Task Publish(IDomainEvent domainEvent)
+    public async Task Publish(IDomainEvent domainEvent, CancellationToken contextCancellationToken)
     {
         var type = typeof(IDomainEventHandler<>).MakeGenericType(domainEvent.GetType());
         dynamic handler = _serviceProvider.GetService(type);

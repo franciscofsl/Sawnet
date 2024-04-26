@@ -15,6 +15,7 @@
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+        <PackageReference Include="NSubstitute" />
         <PackageReference Include="xunit"/>
         <PackageReference Include="xunit.runner.visualstudio">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -27,6 +28,7 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\src\Sawnet.Data\Sawnet.Data.csproj"/>
+        <ProjectReference Include="..\..\src\Sawnet.Infrastructure\Sawnet.Infrastructure.csproj" />
     </ItemGroup>
  
     <ItemGroup>

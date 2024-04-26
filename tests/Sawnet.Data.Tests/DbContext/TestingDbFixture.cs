@@ -1,16 +1,20 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Sawnet.Core;
-using Sawnet.Core.Modules;
-using Sawnet.Data.Tests.Models;
+using Sawnet.Core.Events;
+using Sawnet.Data.Tests.Types.DomainEvents;
+using Sawnet.Data.Tests.Types.Models;
+using Sawnet.Infrastructure;
+using Sawnet.Shared.Modules;
 
 namespace Sawnet.Data.Tests.DbContext;
 
 [ModulesToInclude(typeof(DddModule),
-    typeof(EfCoreModule))]
+    typeof(EfCoreModule),
+    typeof(SawnetInfraestructureModule))]
 public class TestingDbFixture : SawnetDbFixture<TestingDbContext>
 {
     protected override void OnConfigureServices(IServiceCollection services)
     {
-        services.AddDbContext<IDbContext, TestingDbContext>();
+        services.AddTransient(typeof(IDomainEventHandler<SampleModelCreated>), typeof(SampleModelCreatedHandler));
     }
 }
