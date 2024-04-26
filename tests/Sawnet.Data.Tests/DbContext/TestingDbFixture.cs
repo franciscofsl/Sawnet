@@ -10,7 +10,7 @@ namespace Sawnet.Data.Tests.DbContext;
 
 [ModulesToInclude(typeof(DddModule),
     typeof(EfCoreModule),
-    typeof(SawnetInfraestructureModule))]
+    typeof(SawnetInfrastructureModule))]
 public class TestingDbFixture : SawnetDbFixture<TestingDbContext>
 {
     protected override void OnConfigureServices(IServiceCollection services)

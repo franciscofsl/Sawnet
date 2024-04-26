@@ -3,7 +3,7 @@
 namespace Sawnet.Infrastructure;
 
 [ModulesToInclude(typeof(OutboxModule))]
-public class SawnetInfraestructureModule : SawnetModule
+public class SawnetInfrastructureModule : SawnetModule
 {
     
 }
