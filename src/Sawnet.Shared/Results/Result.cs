@@ -1,4 +1,4 @@
-﻿namespace Sawnet.Core.Results;
+﻿namespace Sawnet.Shared.Results;
 
 public class Result
 {

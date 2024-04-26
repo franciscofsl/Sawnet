@@ -1,4 +1,4 @@
-namespace Sawnet.Core.Modules;
+namespace Sawnet.Shared.Modules;
 
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
 public class ModulesToIncludeAttribute : Attribute

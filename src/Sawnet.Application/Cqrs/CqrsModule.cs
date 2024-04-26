@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Sawnet.Application.Cqrs.Commands;
 using Sawnet.Application.Cqrs.Queries;
-using Sawnet.Core.Modules;
+using Sawnet.Shared.Modules;
 
 namespace Sawnet.Application.Cqrs;
 

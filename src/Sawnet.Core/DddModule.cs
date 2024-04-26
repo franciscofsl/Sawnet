@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Sawnet.Core.BaseTypes;
 using Sawnet.Core.Events;
 using Sawnet.Core.GuidGenerators;
-using Sawnet.Core.Modules;
+using Sawnet.Shared.Modules;
 
 [assembly: InternalsVisibleTo("Sawnet.Core.Tests")]
 

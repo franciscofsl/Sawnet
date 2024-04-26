@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Sawnet.Core.Modules;
+using Sawnet.Shared.Modules;
 
 namespace Sawnet.Testing;
 

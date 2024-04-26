@@ -1,7 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
-namespace Sawnet.Core.Modules;
+namespace Sawnet.Shared.Modules;
 
 public abstract class SawnetModule
 {
@@ -23,7 +22,7 @@ public abstract class SawnetModule
     internal IReadOnlyList<SawnetModule> GetModules()
     {
         var type = GetType();
-        
+
         var modulesToIncludeAttribute = type.GetCustomAttributes(typeof(ModulesToIncludeAttribute), true);
 
         return modulesToIncludeAttribute

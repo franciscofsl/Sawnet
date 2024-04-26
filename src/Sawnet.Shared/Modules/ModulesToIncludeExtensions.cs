@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Sawnet.Core.Modules;
+namespace Sawnet.Shared.Modules;
 
 public static class ModulesToIncludeExtensions
 {

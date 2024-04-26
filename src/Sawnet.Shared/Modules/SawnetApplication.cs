@@ -1,7 +1,7 @@
-using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Sawnet.Core.Modules;
+namespace Sawnet.Shared.Modules;
 
 public abstract class SawnetApplication
 {

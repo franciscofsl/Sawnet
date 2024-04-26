@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Sawnet.Application.Cqrs;
-using Sawnet.Core.Modules;
+using Sawnet.Shared.Modules;
 
 namespace Sawnet.Application;
 

@@ -1,4 +1,4 @@
-﻿namespace Sawnet.Core.Results;
+﻿namespace Sawnet.Shared.Results;
 
 public record class Error(string Code, string Message)
 {

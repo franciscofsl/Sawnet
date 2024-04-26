@@ -1,4 +1,4 @@
-﻿namespace Sawnet.Shared;
+﻿namespace Sawnet.Shared.SelectableItems;
 public class SelectableItem : SelectableItem<Guid>
 {
     public SelectableItem()
@@ -6,7 +6,6 @@ public class SelectableItem : SelectableItem<Guid>
         
     }
 }
-
 
 public class SelectableItem<TId> : ISelectableItem
 {

@@ -1,4 +1,5 @@
 ﻿using Sawnet.Shared;
+using Sawnet.Shared.SelectableItems;
 
 namespace Sawnet.Blazor.Forms.Fields.Types;
 

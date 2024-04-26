@@ -1,4 +1,4 @@
-﻿namespace Sawnet.Shared;
+﻿namespace Sawnet.Shared.SelectableItems;
 
 public class SelectableItemCollection<TId>
 {
