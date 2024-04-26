@@ -27,6 +27,8 @@
       <UpToDateCheckInput Remove="Tabs\Tab.razor" />
       <UpToDateCheckInput Remove="Tabs\TabPanel.razor" />
       <UpToDateCheckInput Remove="Forms\SnModalForm.razor" />
+      <UpToDateCheckInput Remove="Accordion\SnAccordion.razor" />
+      <UpToDateCheckInput Remove="Accordion\SnAccordionGroup.razor" />
     </ItemGroup>
 
     <ItemGroup>
