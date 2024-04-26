@@ -1,4 +1,6 @@
-﻿namespace Sawnet.Core.Tests.Modules;
+﻿using Sawnet.Shared.Modules;
+
+namespace Sawnet.Core.Tests.Modules;
 
 public class SawnetApplicationTest
 {

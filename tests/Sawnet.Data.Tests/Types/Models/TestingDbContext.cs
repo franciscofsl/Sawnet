@@ -2,7 +2,7 @@
 using Sawnet.Core.Events;
 using Sawnet.Data.DbContexts;
 
-namespace Sawnet.Data.Tests.Models;
+namespace Sawnet.Data.Tests.Types.Models;
 
 public class TestingDbContext : SawnetDbContext<TestingDbContext>
 {

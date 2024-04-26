@@ -7,12 +7,12 @@ namespace Sawnet.Data;
 
 public static class Extensions
 {
-    public static void AddSawnetDbContext<TDbContext>(this IServiceCollection services)
+    public static void AddSawnetDbContext<TDbContext>(this IServiceCollection services, string connectionString = null)
         where TDbContext : DbContext, IDbContext
     {
         var serviceProvider = services.BuildServiceProvider();
         var configuration = serviceProvider.GetService<IConfiguration>();
-        var connectionString = configuration?.GetConnectionString("DefaultConnection");
+        connectionString ??= configuration?.GetConnectionString("DefaultConnection");
 
         if (!string.IsNullOrEmpty(connectionString))
         {

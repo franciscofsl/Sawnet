@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Infrastructure.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Sawnet.Core.BaseTypes;
 using Sawnet.Core.Events;

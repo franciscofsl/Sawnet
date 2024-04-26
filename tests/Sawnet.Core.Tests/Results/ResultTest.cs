@@ -1,4 +1,4 @@
-﻿using Sawnet.Core.Results;
+﻿using Sawnet.Shared.Results;
 
 namespace Sawnet.Core.Tests.Results;
 

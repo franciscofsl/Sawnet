@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Sawnet.Core.Modules;
 using Sawnet.Data.DbContexts;
+using Sawnet.Shared.Modules;
 
 namespace Sawnet.Data.Tests;
 
@@ -82,6 +82,7 @@ public abstract class SawnetDbFixture<TDbContext> : IDisposable
         var dbName = $"TestingDatabase-{Guid.NewGuid()}";
         var connectionString =
             $"Server=localhost,1433;Database={dbName};User=sa;Password=SqlServer_Docker2023;MultipleActiveResultSets=true;TrustServerCertificate=True;";
-        services.AddDbContext<IDbContext, TDbContext>(opt => opt.UseSqlServer(connectionString));
+        
+        services.AddSawnetDbContext<TDbContext>(connectionString);
     }
 }

@@ -26,5 +26,6 @@ public sealed class OutboxModule : SawnetModule
 
         services.AddQuartzHostedService();
         services.AddTransient<OutboxMessageStore>();
+        services.AddTransient<ProcessOutboxMessagesJob>();
     }
 }

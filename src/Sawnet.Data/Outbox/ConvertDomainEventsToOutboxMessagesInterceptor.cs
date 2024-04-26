@@ -1,5 +1,4 @@
-﻿using Infrastructure.Outbox;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Newtonsoft.Json;
 using Sawnet.Core.BaseTypes;

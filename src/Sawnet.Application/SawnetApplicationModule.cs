@@ -9,5 +9,4 @@ namespace Sawnet.Application;
 [ModulesToInclude(typeof(CqrsModule))]
 public abstract class SawnetApplicationModule : SawnetModule
 {
-    protected virtual IReadOnlyList<Assembly> ValidatorsAssemblies { get; } = Enumerable.Empty<Assembly>().ToList();
 }
