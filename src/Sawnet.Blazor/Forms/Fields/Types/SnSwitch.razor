@@ -1,0 +1,18 @@
+﻿@inherits SnComponentBase
+
+<SfSwitch TChecked="bool?" @bind-Checked="@Checked" ValueChange="@OnValueChanged"></SfSwitch>
+
+@code {
+    [Parameter] public bool? Checked { get; set; }
+
+    [Parameter] public EventCallback<bool?> ValueChanged { get; set; }
+
+    private async Task OnValueChanged(Syncfusion.Blazor.Buttons.ChangeEventArgs<bool?> obj)
+    {
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(obj.Checked);
+        }
+    }
+
+}

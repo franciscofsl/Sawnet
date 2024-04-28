@@ -2,30 +2,32 @@
 @using Sawnet.Blazor.Buttons
 @inherits Sawnet.Blazor.SnComponentBase
 
-<SfDialog @ref="_dialog" Width="@Width" Height="@Height" IsModal="true" Visible="false" ShowCloseIcon="@ShowCloseButton">
-    <DialogTemplates>
-        <Header>
-            @if (Header is null)
-            {
-                @Title
-            }
-            else
-            {
-                @Header(Title)
-            }
-        </Header>
-        <Content>
-            @Body
-        </Content>
-        <FooterTemplate>
-            @if (HasFooter)
-            {
-                <div class="modal-form-footer">
-                    <SnButton Text="@PrimaryButtonText" Icon="@PrimaryButtonIcon" OnClick="@OnPrimaryButtonClickedAsync"/>
-                    <SnButton Text="@SecondaryButtonText" Icon="@SecondaryButtonIcon" OnClick="@OnSecondaryButtonClickedAsync"/>
-                </div>
-            }
-        </FooterTemplate>
-    </DialogTemplates>
-    <DialogAnimationSettings Effect="@DialogEffect.Fade"></DialogAnimationSettings>
-</SfDialog>
+<div class="sawnet-modal-form">
+    <SfDialog @ref="_dialog" Width="@Width" Height="@Height" IsModal="true" Visible="false" ShowCloseIcon="@ShowCloseButton">
+        <DialogTemplates>
+            <Header>
+                @if (Header is null)
+                {
+                    @Title
+                }
+                else
+                {
+                    @Header(Title)
+                }
+            </Header>
+            <Content>
+                @Body
+            </Content>
+            <FooterTemplate>
+                @if (HasFooter)
+                {
+                    <div class="modal-form-footer">
+                        <SnButton Text="@PrimaryButtonText" Icon="@PrimaryButtonIcon" OnClick="@OnPrimaryButtonClickedAsync"/>
+                        <SnButton Text="@SecondaryButtonText" Icon="@SecondaryButtonIcon" OnClick="@OnSecondaryButtonClickedAsync"/>
+                    </div>
+                }
+            </FooterTemplate>
+        </DialogTemplates>
+        <DialogAnimationSettings Effect="@DialogEffect.Fade"></DialogAnimationSettings>
+    </SfDialog>
+</div>

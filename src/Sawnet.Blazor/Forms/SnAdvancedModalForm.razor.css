@@ -126,3 +126,7 @@ button.delete:hover i {
     opacity: 1;
     display: block;
 }
+
+.advanced-modal-form > .e-dialog.e-control .e-dlg-content {
+    padding: 0 0 0 20px;
+}

@@ -62,4 +62,14 @@ public partial class SnFormField<TItem>
 
         return propertyValue as ISelectableItem;
     }
+
+    private decimal? GetDecimalValue(FormField field)
+    {
+        return Item?.GetPropertyValue(field.PropertyName) as decimal?;
+    }
+
+    private bool? GetBooleanValue(FormField field)
+    {
+        return Item?.GetPropertyValue(field.PropertyName) as bool?;
+    }
 }

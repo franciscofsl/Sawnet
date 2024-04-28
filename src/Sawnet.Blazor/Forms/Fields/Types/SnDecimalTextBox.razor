@@ -1,0 +1,46 @@
+﻿@inherits SnComponentBase
+
+<SfNumericTextBox TValue="decimal?"
+                  Value="@Value"
+                  Decimals="@NumberOfDecimals"
+                  Max="@Max"
+                  ShowClearButton="true"
+                  Min="@Min"
+                  Format="@GetFormat()"
+                  Step="1"
+                  ValueChanged="OnValueChanged">
+</SfNumericTextBox>
+
+@code{
+
+    [Parameter] public decimal? Value { get; set; }
+
+    [Parameter] public decimal? Max { get; set; }
+
+    [Parameter] public decimal? Min { get; set; }
+
+    [Parameter] public NumberFormat Format { get; set; } = NumberFormat.Integer;
+
+    [Parameter] public int NumberOfDecimals { get; set; }
+
+    [Parameter] public EventCallback<decimal?> ValueChanged { get; set; }
+
+    private string GetFormat()
+    {
+        if (Format == NumberFormat.Percentage)
+        {
+            return "### '%'";
+        }
+
+        return string.Empty;
+    }
+
+    private async Task OnValueChanged(decimal? value)
+    {
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(value);
+        }
+    }
+
+}
