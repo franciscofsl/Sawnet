@@ -6,9 +6,6 @@ public abstract class EventNotifier
 
     public async Task Update()
     {
-        if (Notify != null)
-        {
-            await Notify();
-        }
+        if (Notify != null) await Notify();
     }
 }
