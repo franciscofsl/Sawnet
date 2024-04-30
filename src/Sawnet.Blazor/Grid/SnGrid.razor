@@ -44,10 +44,12 @@
             DataSource="Data"
             AllowSelection="true"
             AllowPaging="true"
-            Width="100 %"
+            Width="100%"
             RowHeight="30">
             <GridSelectionSettings Type="GetSelectionType()" Mode="Syncfusion.Blazor.Grids.SelectionMode.Row"/>
+            
             <GridPageSettings @ref="_pageSettings" PageSize="25"/>
+            
             <GridEvents
                 RowDropped="OnSelectionChangedAsync"
                 RowSelected="OnSelectionChangedAsync"

@@ -12,10 +12,3 @@ public sealed class NumericField : FormField
     
     public int NumberOfDecimals { get; set; }
 }
-
-public enum NumberFormat
-{
-    Integer,
-    Decimal,
-    Percentage
-}

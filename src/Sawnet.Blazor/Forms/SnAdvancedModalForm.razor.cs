@@ -1,4 +1,5 @@
 ﻿using Sawnet.Blazor.Forms.Configurators;
+using Sawnet.Blazor.Toast;
 using Syncfusion.Blazor.Popups;
 
 namespace Sawnet.Blazor.Forms;
@@ -18,11 +19,11 @@ public partial class SnAdvancedModalForm<TItem> where TItem : class
     [Parameter] public Func<Guid, Task<TItem>> OnGetItemFn { get; set; }
 
     [Parameter] public EventCallback<TItem> OnDeleteClicked { get; set; }
-    
+
     [Parameter] public RenderFragment Insight { get; set; }
-    
+
     [Parameter] public RenderFragment<TItem> LeftToolbarItems { get; set; }
-    
+
     [Parameter] public RenderFragment<TItem> RightToolbarItems { get; set; }
 
     public TItem Item { get; private set; }
@@ -45,6 +46,7 @@ public partial class SnAdvancedModalForm<TItem> where TItem : class
         if (OnSaveClicked.HasDelegate)
         {
             await OnSaveClicked.InvokeAsync(_typedForm.Item);
+            Toast.Success(new ToastMessage("Common.ElementSaved", "Common.ElementSavedSuccess"));
         }
     }
 

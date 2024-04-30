@@ -1,6 +1,4 @@
-﻿using Sawnet.Shared.Extensions;
-
-namespace Sawnet.Blazor.Panels.TogglePanel;
+﻿namespace Sawnet.Blazor.Panels.TogglePanel;
 
 public partial class SnTogglePanel
 {

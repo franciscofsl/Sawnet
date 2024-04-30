@@ -29,6 +29,7 @@
             </Header>
             <Content>
                 <div class="form-body-container">
+                    
                     <div class="body-toolbar">
                         <div class="toolbar-left-items">
                             @if (LeftToolbarItems != null)
@@ -41,7 +42,10 @@
                             {
                                 @RightToolbarItems
                             }
-                            <SnLinkButton OnClick="@ToggleRightPanel" Icon="fas fa-info"/>
+                            @if (Insight != null)
+                            {
+                                <SnLinkButton OnClick="@ToggleRightPanel" Icon="fas fa-info"/>
+                            }
                         </div>
                     </div>
                     <div class="form-body">
