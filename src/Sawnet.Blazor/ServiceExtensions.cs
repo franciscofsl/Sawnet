@@ -7,6 +7,7 @@ using Sawnet.Blazor.Services.LocalStorage;
 using Sawnet.Blazor.Services.LocalStorage.JsonConverters;
 using Sawnet.Blazor.Services.LocalStorage.Serialization;
 using Sawnet.Blazor.Services.LocalStorage.StorageOptions;
+using Sawnet.Blazor.Toast;
 using Syncfusion.Blazor;
 using Syncfusion.Licensing;
 
@@ -20,6 +21,9 @@ public static class ServiceExtensions
         SyncfusionLicenseProvider.RegisterLicense(license);
         services.AddSyncfusionBlazor();
         services.AddLocalStorage();
+        
+        services.AddSingleton<ToastNotifier>();
+        services.AddSingleton<ToastService>();
 
         return services;
     }
