@@ -6,9 +6,16 @@ public abstract class EventNotifier
 
     public async Task Update()
     {
-        if (Notify != null)
-        {
-            await Notify();
-        }
+        if (Notify != null) await Notify();
+    }
+}
+
+public abstract class EventNotifier<TItem>
+{
+    public Func<TItem, Task> Notify { get; set; }
+
+    public async Task Update(TItem item)
+    {
+        if (Notify != null) await Notify(item);
     }
 }

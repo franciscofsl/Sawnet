@@ -1,0 +1,26 @@
+﻿@inherits SnComponentBase
+
+<div class="sawnet-switch">
+    <SfSwitch TChecked="bool?" @bind-Checked="@Checked" ValueChange="@OnValueChanged"></SfSwitch>
+</div>
+
+<style>
+  .sawnet-switch > .e-switch-wrapper{
+        display: inherit !important;
+    }
+</style>
+
+@code {
+    [Parameter] public bool? Checked { get; set; }
+
+    [Parameter] public EventCallback<bool?> ValueChanged { get; set; }
+
+    private async Task OnValueChanged(Syncfusion.Blazor.Buttons.ChangeEventArgs<bool?> obj)
+    {
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(obj.Checked);
+        }
+    }
+
+}

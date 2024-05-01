@@ -38,4 +38,8 @@
     <ItemGroup>
       <ProjectReference Include="..\Sawnet.Shared\Sawnet.Shared.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Services\LocalStorage\" />
+    </ItemGroup>
 </Project>

@@ -13,6 +13,7 @@
 }
 
 .form-field-label {
+    white-space: nowrap;
 }
 
 .field {

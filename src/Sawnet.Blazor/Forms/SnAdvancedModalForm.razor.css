@@ -126,3 +126,23 @@ button.delete:hover i {
     opacity: 1;
     display: block;
 }
+
+.advanced-modal-form > .e-dialog.e-control .e-dlg-content {
+    padding: 0 0 0 20px;
+}
+
+.unsaved-changes-panel {
+    background-color: #f9d187;
+    width: 100%;
+    padding: 10px;
+    color: #ffffff;
+    font-weight: 400;
+    border: 1px solid #e6b45c;
+    display: flex;
+    align-items: center;
+}
+
+.unsaved-changes-panel i {
+    margin-right: 8px;
+    color: #ffffff;
+}

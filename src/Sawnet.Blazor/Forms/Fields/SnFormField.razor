@@ -37,6 +37,15 @@
                           Format="@(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern)"
                           ValueChanged="(args) => OnValueChanged(args, Field)"/>
         }
+        else if (Field is TimeOnlyField timeOnlyField)
+        {
+            <SnTimeField
+                Value="@GetTimeOnlyValue(Field)"
+                Min="@timeOnlyField.Min"
+                Max="@timeOnlyField.Max"
+                OnValueChanged="(args) => OnValueChanged(args, Field)">
+            </SnTimeField>
+        }
         else if (Field is ColorField colorField)
         {
             <SfColorPicker
@@ -54,6 +63,27 @@
                         PropertyToShow="@(nameof(ISelectableItem.Name))"
                         ValueChanged="(args) => OnValueChanged(args, Field)">
             </SnComboBox>
+        }
+        else if (Field.Type is FieldType.Numeric)
+        {
+            var fieldAsNumeric = Field as NumericField;
+
+            <SnDecimalTextBox
+                Value="@GetDecimalValue(Field)"
+                Format="@fieldAsNumeric.Format"
+                Max="@fieldAsNumeric.Max"
+                Min="@fieldAsNumeric.Min"
+                NumberOfDecimals="@fieldAsNumeric.NumberOfDecimals"
+                ValueChanged="(args) => OnValueChanged(args, Field)">
+
+            </SnDecimalTextBox>
+        }
+        else if (Field.Type is FieldType.Boolean)
+        {
+            <SnSwitch
+                Checked="@GetBooleanValue(Field)"
+                ValueChanged="(args) => OnValueChanged(args, Field)">
+            </SnSwitch>
         }
     </div>
 </div>

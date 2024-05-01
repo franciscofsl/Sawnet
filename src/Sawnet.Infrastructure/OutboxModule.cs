@@ -20,7 +20,7 @@ public sealed class OutboxModule : SawnetModule
                         .ForJob(jobKey)
                         .WithSimpleSchedule(schedule =>
                             schedule
-                                .WithIntervalInSeconds(10)
+                                .WithIntervalInSeconds(100000)
                                 .RepeatForever()));
         });
 

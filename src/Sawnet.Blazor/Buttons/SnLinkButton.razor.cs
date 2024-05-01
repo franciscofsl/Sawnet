@@ -2,17 +2,15 @@
 
 public partial class SnLinkButton
 {
-    [Parameter]
-    public string Text { get; set; }
+    [Parameter] public string Text { get; set; }
 
-    [Parameter]
-    public string Icon { get; set; }
+    [Parameter] public string Icon { get; set; }
+
+    [Parameter] public string IconColor { get; set; } = "#737373";
     
-    [Parameter]
-    public string IconColor { get; set; } = "#737373";
+    [Parameter] public bool Visible { get; set; } = true;
 
-    [Parameter]
-    public EventCallback OnClick { get; set; } 
+    [Parameter] public EventCallback OnClick { get; set; }
 
     private async Task HandleClick()
     {

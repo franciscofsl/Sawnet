@@ -4,6 +4,9 @@ public enum FieldType
 {
     Text,
     DateOnly,
+    TimeOnly,
     HexadecimalColor,
-    Selectable
+    Selectable,
+    Numeric,
+    Boolean
 }

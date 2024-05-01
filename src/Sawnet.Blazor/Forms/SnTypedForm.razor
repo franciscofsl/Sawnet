@@ -11,7 +11,7 @@
         {
             if (group.Collapsible)
             {
-                <SnTogglePanel Text="@group.Title" Icon="@group.Icon">
+                <SnTogglePanel StateStoreKey="@($"{typeof(TItem).Name}-{group.Title}")" Text="@group.Title" Icon="@group.Icon">
                     <Content>
                         <SnFormGroup TItem="TItem" Item="Item" Group="@group"/>
                     </Content>
