@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Sawnet.Blazor.Forms.Services;
 using Sawnet.Blazor.Services.LocalStorage;
 using Sawnet.Blazor.Services.LocalStorage.JsonConverters;
 using Sawnet.Blazor.Services.LocalStorage.Serialization;
@@ -24,6 +25,7 @@ public static class ServiceExtensions
         
         services.AddSingleton<ToastNotifier>();
         services.AddSingleton<ToastService>();
+        services.AddSingleton<AdvancedModalFormPropertyChangedNotifier>();
 
         return services;
     }
