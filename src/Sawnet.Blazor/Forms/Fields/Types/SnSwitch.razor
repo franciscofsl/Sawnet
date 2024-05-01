@@ -1,6 +1,14 @@
 ﻿@inherits SnComponentBase
 
-<SfSwitch TChecked="bool?" @bind-Checked="@Checked" ValueChange="@OnValueChanged"></SfSwitch>
+<div class="sawnet-switch">
+    <SfSwitch TChecked="bool?" @bind-Checked="@Checked" ValueChange="@OnValueChanged"></SfSwitch>
+</div>
+
+<style>
+  .sawnet-switch > .e-switch-wrapper{
+        display: inherit !important;
+    }
+</style>
 
 @code {
     [Parameter] public bool? Checked { get; set; }

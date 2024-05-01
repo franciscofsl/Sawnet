@@ -8,6 +8,7 @@
     TValue="string"
     TItem="TItem"
     Value="Value"
+    ValueChanged="OnFieldValueChangedAsync"
     ShowPopupButton="true">
     <AutoCompleteFieldSettings Value="@PropertyToShow"/>
     <AutoCompleteEvents TItem="TItem"
@@ -46,28 +47,12 @@
         var items = await GetDataFn(filter);
 
         _autoComplete.DataSource = items;
-
-        // if (SelectedValue is not null)
-        // {
-        //     await _autoComplete.DataManager.InsertAsync<ISelectableItem>(SelectedValue);
-        // }
     }
 
     private async Task OnOpenAsync(BeforeOpenEventArgs args)
     {
         await LoadAsync(string.Empty);
     }
-
-
-    // private Task OnValueChangedAsync(ChangeEventArgs<string, ISelectableItem> arg)
-    // {
-    //     throw new NotImplementedException();
-    // }
-
-    // private Task OnValueChanged(ChangeEventArgs<string, ISelectableItem> arg)
-    // {
-    //     throw new NotImplementedException();
-    // }
 
     private Task OnValueChangedAsync(ChangeEventArgs<string, TItem> arg)
     {
@@ -86,6 +71,16 @@
         {
             Value = arg.ItemData?.ToString();
             await ValueChanged.InvokeAsync(arg.ItemData);
+        }
+    }
+
+    private async Task OnFieldValueChangedAsync(string arg)
+    {
+        if (arg is null)
+        {
+            Value = null;
+            SelectedItem = default;
+            await ValueChanged.InvokeAsync();
         }
     }
 

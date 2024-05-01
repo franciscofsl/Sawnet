@@ -25,6 +25,8 @@ public partial class SnAdvancedModalForm<TItem> where TItem : class
     [Parameter] public RenderFragment<TItem> LeftToolbarItems { get; set; }
 
     [Parameter] public RenderFragment<TItem> RightToolbarItems { get; set; }
+    
+    [Parameter] public RenderFragment<TItem> Content { get; set; }
 
     public TItem Item { get; private set; }
 

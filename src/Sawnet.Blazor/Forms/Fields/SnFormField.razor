@@ -37,6 +37,15 @@
                           Format="@(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern)"
                           ValueChanged="(args) => OnValueChanged(args, Field)"/>
         }
+        else if (Field is TimeOnlyField timeOnlyField)
+        {
+            <SnTimeField
+                Value="@GetTimeOnlyValue(Field)"
+                Min="@timeOnlyField.Min"
+                Max="@timeOnlyField.Max"
+                OnValueChanged="(args) => OnValueChanged(args, Field)">
+            </SnTimeField>
+        }
         else if (Field is ColorField colorField)
         {
             <SfColorPicker

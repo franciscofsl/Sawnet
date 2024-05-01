@@ -24,11 +24,12 @@ public partial class SnFormField<TItem>
 
     private DateTime? GetDateTimeValue(FormField field)
     {
-        var type = typeof(TItem);
+        return Item?.GetPropertyValue(field.PropertyName) as DateTime?;
+    }
 
-        var property = type.GetProperty(field.PropertyName);
-
-        return property?.GetValue(Item) as DateTime?;
+    private TimeOnly? GetTimeOnlyValue(FormField field)
+    {
+        return Item?.GetPropertyValue(field.PropertyName) as TimeOnly?;
     }
 
     private void OnValueChanged(object value, FormField selectableField)
