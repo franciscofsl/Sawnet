@@ -1,4 +1,4 @@
-using Sawnet.Core.GuidGenerators;
+using Sawnet.Shared.GuidGenerators;
 
 namespace Sawnet.Core.BaseTypes;
 

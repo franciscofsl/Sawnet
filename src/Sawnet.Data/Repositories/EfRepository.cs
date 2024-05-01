@@ -69,6 +69,13 @@ public class EfRepository<TAggregateRoot, TEntityId>
     {
         var query = DbContext.Set<TAggregateRoot>().AsQueryable();
 
+        query = ApplyIncludes(query);
+
         return Task.FromResult(query);
+    }
+
+    protected virtual IQueryable<TAggregateRoot> ApplyIncludes(IQueryable<TAggregateRoot> query)
+    {
+        return query;
     }
 }

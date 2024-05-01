@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace Sawnet.Core.GuidGenerators;
+namespace Sawnet.Shared.GuidGenerators;
 
 public static class SequentialGuidGenerator
 {
