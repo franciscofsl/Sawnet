@@ -1,0 +1,35 @@
+﻿@inherits SnComponentBase
+
+<div>
+    <SfAppBar ColorMode="AppBarColor.Primary" IsSticky="true">
+        @{
+            var menu = MenuDefinitionProvider.ConfigureMenu();
+
+            foreach (var subMenu in menu.SubMenus)
+            {
+                @if (subMenu.SubMenus.Any())
+                {
+                    <SfDropDownButton CssClass="@("e-inherit e-appbar-menu e-primary")" Content="@subMenu.Text" IconCss="@subMenu.Icon">
+                        <DropDownMenuItems>
+                            @foreach (var option in subMenu.SubMenus)
+                            {
+                                <DropDownMenuItem
+                                    IconCss="@option.Icon"
+                                    Text="@option.Text"
+                                    Url="@option.Path"/>
+                            }
+                        </DropDownMenuItems>
+                    </SfDropDownButton>
+                }
+                else
+                {
+                    <SfButton
+                        CssClass="@("e-inherit e-appbar-menu e-primary")"
+                        Content="@subMenu.Text"
+                        IconCss="@subMenu.Icon"
+                        @onclick="async () => await OpenPage(subMenu.Path)"/>
+                }
+            }
+        }
+    </SfAppBar>
+</div>
