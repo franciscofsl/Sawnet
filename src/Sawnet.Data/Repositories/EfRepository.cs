@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Sawnet.Core.BaseTypes;
 using Sawnet.Core.Contracts;
+using Sawnet.Shared.Exceptions;
 
 namespace Sawnet.Data.Repositories;
 
@@ -21,7 +22,14 @@ public class EfRepository<TAggregateRoot, TEntityId>
     {
         var query = await GetQueryableAsync();
 
-        return await query.FirstOrDefaultAsync(_ => _.Id == id);
+        var entity = await query.FirstOrDefaultAsync(_ => _.Id == id);
+
+        if (entity is null)
+        {
+            throw new EntityNotFoundException(id.Value, nameof(TAggregateRoot));
+        }
+
+        return entity;
     }
 
     public async Task<List<TAggregateRoot>> GetListAsync(Expression<Func<TAggregateRoot, bool>> filter = null)
@@ -34,6 +42,20 @@ public class EfRepository<TAggregateRoot, TEntityId>
         }
 
         return await query.ToListAsync();
+    }
+
+    public async Task<List<TReturnModel>> GetListAsync<TReturnModel>(
+        Expression<Func<TAggregateRoot, TReturnModel>> map,
+        Expression<Func<TAggregateRoot, bool>> filter = null)
+    {
+        var query = await GetQueryableAsync();
+
+        if (filter is not null)
+        {
+            query = query.Where(filter);
+        }
+
+        return await query.Select(map).ToListAsync();
     }
 
     public async Task<TAggregateRoot> InsertAsync(TAggregateRoot entity, bool save = true)
@@ -72,6 +94,13 @@ public class EfRepository<TAggregateRoot, TEntityId>
         query = ApplyIncludes(query);
 
         return Task.FromResult(query);
+    }
+
+    protected IQueryable<TAggregateRoot> GetQueryable()
+    {
+        var query = DbContext.Set<TAggregateRoot>().AsQueryable();
+
+        return ApplyIncludes(query);
     }
 
     protected virtual IQueryable<TAggregateRoot> ApplyIncludes(IQueryable<TAggregateRoot> query)

@@ -1,9 +1,11 @@
-﻿using System.Text.Json;
+﻿using System.Reflection;
+using System.Text.Json;
 using System.Text.Json.Serialization;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Sawnet.Blazor.Forms.Services;
+using Sawnet.Blazor.Services;
 using Sawnet.Blazor.Services.LocalStorage;
 using Sawnet.Blazor.Services.LocalStorage.JsonConverters;
 using Sawnet.Blazor.Services.LocalStorage.Serialization;
@@ -11,23 +13,50 @@ using Sawnet.Blazor.Services.LocalStorage.StorageOptions;
 using Sawnet.Blazor.Toast;
 using Syncfusion.Blazor;
 using Syncfusion.Licensing;
+using Refit;
 
 namespace Sawnet.Blazor;
 
 public static class ServiceExtensions
 {
-    public static IServiceCollection AddSawnetBlazor(this IServiceCollection services, IConfiguration configuration)
+    public static void AddSawnetBlazor(this WebAssemblyHostBuilder builder)
     {
-        var license = configuration["SyncfusionLicense"];
+        var license = builder.Configuration["SyncfusionLicense"];
         SyncfusionLicenseProvider.RegisterLicense(license);
-        services.AddSyncfusionBlazor();
-        services.AddLocalStorage();
-        
-        services.AddSingleton<ToastNotifier>();
-        services.AddSingleton<ToastService>();
-        services.AddSingleton<AdvancedModalFormPropertyChangedNotifier>();
+        builder.Services.AddSyncfusionBlazor();
+        builder.Services.AddLocalStorage();
 
-        return services;
+        builder.Services.AddSingleton<ToastNotifier>();
+        builder.Services.AddSingleton<ToastService>();
+        builder.Services.AddSingleton<AdvancedModalFormPropertyChangedNotifier>();
+
+        var assemblies = AppDomain.CurrentDomain
+            .GetAssemblies()
+            .Where(_ =>
+            {
+                var name = _.GetName().Name;
+                return name != null && (name.Contains("Blazor"));
+            })
+            .ToList();
+        ConfigureEventNotifiers(builder, assemblies);
+    }
+
+    private static void ConfigureEventNotifiers(WebAssemblyHostBuilder builder, List<Assembly> assemblies)
+    {
+        builder.Services
+            .Scan(scan => scan
+                .FromAssemblies(assemblies)
+                .AddClasses(classes => classes.AssignableTo(typeof(EventNotifier)))
+                .AsSelf()
+                .WithTransientLifetime());
+    }
+
+    public static void AddRestClient<TService>(this WebAssemblyHostBuilder builder, string uri = null) where TService : class, IRestService
+    {
+        builder.Services.AddRefitClient<TService>().ConfigureHttpClient(c =>
+        {
+            c.BaseAddress = new Uri(uri ?? builder.HostEnvironment.BaseAddress);
+        });
     }
 
     private static void AddLocalStorage(this IServiceCollection services)
