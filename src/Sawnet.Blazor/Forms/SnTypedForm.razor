@@ -13,13 +13,13 @@
             {
                 <SnTogglePanel StateStoreKey="@($"{typeof(TItem).Name}-{group.Title}")" Text="@group.Title" Icon="@group.Icon">
                     <Content>
-                        <SnFormGroup TItem="TItem" Item="Item" Group="@group"/>
+                        <SnFormGroup TItem="TItem" Item="Item" Group="@group" OnPropertyChanged="OnPropertyChangedAsync"/>
                     </Content>
                 </SnTogglePanel>
             }
             else
             {
-                <SnFormGroup TItem="TItem" Item="Item" Group="@group"/>
+                <SnFormGroup TItem="TItem" Item="Item" Group="@group" OnPropertyChanged="OnPropertyChangedAsync"/>
             }
         }
     }

@@ -1,0 +1,19 @@
+﻿@typeparam TItem where TItem : class
+@inherits SnComponentBase
+
+<div class="sn-insight-panel">
+    <SnTabPanel>
+        <Tabs>
+            @if (Details != null)
+            {
+                <SnTabItem Icon="fas fa-info" Title="Common.Details">
+                    <Content>
+                        <div class="insight-tab-panel">
+                            @Details
+                        </div>
+                    </Content>
+                </SnTabItem>
+            }
+        </Tabs>
+    </SnTabPanel>
+</div>

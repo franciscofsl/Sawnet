@@ -8,4 +8,14 @@ public partial class SnTypedForm<TItem> where TItem : class
     public TItem Item { get; set; } = Activator.CreateInstance<TItem>();
     
     [Parameter] public FormConfiguration<TItem> Configuration { get; set; }
+    
+    [Parameter] public EventCallback OnPropertyChanged { get; set; }
+
+    private async Task OnPropertyChangedAsync()
+    {
+        if (OnPropertyChanged.HasDelegate)
+        {
+            await OnPropertyChanged.InvokeAsync();
+        }
+    }
 }

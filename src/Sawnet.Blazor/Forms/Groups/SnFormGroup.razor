@@ -5,6 +5,6 @@
 <div class="section-container @GetNumberOfColumnsStyles(Group)">
     @foreach (var field in Group.Fields)
     {
-        <SnFormField TItem="TItem" Item="Item" Field="@field"/>
+        <SnFormField TItem="TItem" Item="Item" Field="@field" OnPropertyChange="OnPropertyChangedAsync"/>
     }
 </div>

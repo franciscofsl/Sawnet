@@ -102,8 +102,8 @@ button.delete:hover i {
 
 .form-body {
     display: flex;
-    flex: 1;
-    height: calc(100vh - 250px);
+    flex: 1;    
+    overflow-y: auto;
 }
 
 .main-panel {
@@ -114,17 +114,17 @@ button.delete:hover i {
 
 .insight {
     width: 500px;
-    overflow-y: auto;
+    overflow: hidden;
     transition: opacity 1s ease-in-out;
     opacity: 0;
     display: none;
     height: auto;
-    padding: 20px;
 }
 
 .visible {
     opacity: 1;
     display: block;
+    border-left: 1px solid #e1e1e1;
 }
 
 .advanced-modal-form > .e-dialog.e-control .e-dlg-content {

@@ -1,7 +1,5 @@
 ﻿using Sawnet.Blazor.Common;
 using Sawnet.Blazor.Forms.Fields.Types;
-using Sawnet.Blazor.Forms.Services;
-using Sawnet.Shared;
 using Sawnet.Shared.SelectableItems;
 
 namespace Sawnet.Blazor.Forms.Fields;
@@ -14,7 +12,7 @@ public partial class SnFormField<TItem>
 
     [Parameter] public FormField Field { get; set; }
 
-    [Inject] private AdvancedModalFormPropertyChangedNotifier AdvancedModalFormPropertyChangedNotifier { get; set; }
+    [Parameter] public EventCallback OnPropertyChange { get; set; }
 
     private string GetTextBoxValue(FormField field)
     {
@@ -38,9 +36,9 @@ public partial class SnFormField<TItem>
     private async Task OnValueChanged(object value, FormField selectableField)
     {
         Item.SetPropertyValue(selectableField.PropertyName, value);
-        if (AdvancedModalFormPropertyChangedNotifier != null)
+        if (OnPropertyChange.HasDelegate)
         {
-            await AdvancedModalFormPropertyChangedNotifier.Update();
+            await OnPropertyChange.InvokeAsync();
         }
     }
 

@@ -4,7 +4,6 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Sawnet.Blazor.Forms.Services;
 using Sawnet.Blazor.Services;
 using Sawnet.Blazor.Services.LocalStorage;
 using Sawnet.Blazor.Services.LocalStorage.JsonConverters;
@@ -28,7 +27,6 @@ public static class ServiceExtensions
 
         builder.Services.AddSingleton<ToastNotifier>();
         builder.Services.AddSingleton<ToastService>();
-        builder.Services.AddSingleton<AdvancedModalFormPropertyChangedNotifier>();
 
         var assemblies = AppDomain.CurrentDomain
             .GetAssemblies()
