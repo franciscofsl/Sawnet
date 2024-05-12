@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sawnet.Blazor", "src\Sawnet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sawnet.Shared", "src\Sawnet.Shared\Sawnet.Shared.csproj", "{0B85BC10-3E3A-434F-B7B8-B92942122E2A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sawnet.Blazor.Shared", "src\Sawnet.Blazor.Shared\Sawnet.Blazor.Shared.csproj", "{9AF13721-2243-4C04-95A6-835A8D27C420}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,7 @@ Global
 		{AB8B9FF0-A10D-4621-812B-2318FBA14A9F} = {33E9FF38-3DA4-42B4-9CC2-39A2B6754688}
 		{2DCD1490-F168-4059-9191-77878F6D78A3} = {04FE4293-7CB6-4C4F-85C2-2035FD91F004}
 		{0B85BC10-3E3A-434F-B7B8-B92942122E2A} = {04FE4293-7CB6-4C4F-85C2-2035FD91F004}
+		{9AF13721-2243-4C04-95A6-835A8D27C420} = {04FE4293-7CB6-4C4F-85C2-2035FD91F004}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{65E8B309-4396-4D5F-8CB4-653B315D3D52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -119,5 +122,9 @@ Global
 		{0B85BC10-3E3A-434F-B7B8-B92942122E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B85BC10-3E3A-434F-B7B8-B92942122E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B85BC10-3E3A-434F-B7B8-B92942122E2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AF13721-2243-4C04-95A6-835A8D27C420}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AF13721-2243-4C04-95A6-835A8D27C420}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AF13721-2243-4C04-95A6-835A8D27C420}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AF13721-2243-4C04-95A6-835A8D27C420}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

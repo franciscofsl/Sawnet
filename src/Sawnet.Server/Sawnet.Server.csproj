@@ -13,4 +13,9 @@
     <ItemGroup>
         <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\Sawnet.Application\Sawnet.Application.csproj" />
+      <ProjectReference Include="..\Sawnet.Blazor.Shared\Sawnet.Blazor.Shared.csproj" />
+    </ItemGroup>
 </Project>

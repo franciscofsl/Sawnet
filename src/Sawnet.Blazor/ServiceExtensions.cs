@@ -1,9 +1,14 @@
 ﻿using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Grpc.Net.Client;
+using Grpc.Net.Client.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using ProtoBuf.Grpc.Client;
+using Refit;
 using Sawnet.Blazor.Services;
 using Sawnet.Blazor.Services.LocalStorage;
 using Sawnet.Blazor.Services.LocalStorage.JsonConverters;
@@ -12,7 +17,6 @@ using Sawnet.Blazor.Services.LocalStorage.StorageOptions;
 using Sawnet.Blazor.Toast;
 using Syncfusion.Blazor;
 using Syncfusion.Licensing;
-using Refit;
 
 namespace Sawnet.Blazor;
 
@@ -37,6 +41,29 @@ public static class ServiceExtensions
             })
             .ToList();
         ConfigureEventNotifiers(builder, assemblies);
+        ConfigureGrpcChannel(builder.Services);
+    }
+
+    private static void ConfigureGrpcChannel(IServiceCollection services)
+    {
+        services.AddSingleton(_ =>
+        {
+            var config = _.GetRequiredService<IConfiguration>();
+            var backendUrl = config["BackendUrl"];
+
+            if (string.IsNullOrEmpty(backendUrl))
+            {
+                var navigationManager = _.GetRequiredService<NavigationManager>();
+                backendUrl = navigationManager.BaseUri;
+            }
+
+            var httpHandler = new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler());
+
+            return GrpcChannel.ForAddress(backendUrl, new GrpcChannelOptions
+            {
+                HttpHandler = httpHandler
+            });
+        });
     }
 
     private static void ConfigureEventNotifiers(WebAssemblyHostBuilder builder, List<Assembly> assemblies)
@@ -49,11 +76,21 @@ public static class ServiceExtensions
                 .WithTransientLifetime());
     }
 
-    public static void AddRestClient<TService>(this WebAssemblyHostBuilder builder, string uri = null) where TService : class, IRestService
+    public static void AddRestClient<TService>(this WebAssemblyHostBuilder builder, string uri = null)
+        where TService : class, IRestService
     {
         builder.Services.AddRefitClient<TService>().ConfigureHttpClient(c =>
         {
             c.BaseAddress = new Uri(uri ?? builder.HostEnvironment.BaseAddress);
+        });
+    }
+
+    public static void AddGrpcService<TService>(this IServiceCollection services) where TService : class
+    {
+        services.AddTransient(s =>
+        {
+            var grpcChannel = s.GetRequiredService<GrpcChannel>();
+            return grpcChannel.CreateGrpcService<TService>();
         });
     }
 
