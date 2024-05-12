@@ -1,0 +1,5 @@
+﻿.insight-tab-panel{
+    padding: 10px;
+    overflow-y: auto;
+    height: calc(100vh - 289px);
+}

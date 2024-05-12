@@ -1,4 +1,4 @@
-﻿namespace Sawnet.Application.Exceptions;
+﻿namespace Sawnet.Shared.Exceptions;
 
 public sealed class EntityNotFoundException : Exception
 {

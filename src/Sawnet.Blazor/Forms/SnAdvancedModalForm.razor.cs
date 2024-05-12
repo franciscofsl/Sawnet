@@ -1,6 +1,5 @@
 ﻿using System.Text.Json;
 using Sawnet.Blazor.Forms.Configurators;
-using Sawnet.Blazor.Forms.Services;
 using Sawnet.Blazor.Toast;
 using Syncfusion.Blazor.Popups;
 
@@ -32,8 +31,6 @@ public partial class SnAdvancedModalForm<TItem> where TItem : class
 
     [Parameter] public RenderFragment<TItem> Content { get; set; }
 
-    [Inject] private AdvancedModalFormPropertyChangedNotifier AdvancedModalFormPropertyChangedNotifier { get; set; }
-
     public TItem Item { get; private set; }
 
     private string RightPanelClass => _isRightPanelVisible ? "visible" : string.Empty;
@@ -48,24 +45,12 @@ public partial class SnAdvancedModalForm<TItem> where TItem : class
     {
         return _dialog.HideAsync();
     }
-
-    public override void Dispose()
-    {
-        base.Dispose();
-        AdvancedModalFormPropertyChangedNotifier.Notify -= OnAnyPropertyChanged;
-    }
     
     public void CheckPendingChanges()
     {
         var currentItemAsJson = JsonSerializer.Serialize(Item);
         _unsavedChanges = currentItemAsJson != _originalItem;
         StateHasChanged();
-    }
-
-    protected override Task OnInitializedAsync()
-    {
-        AdvancedModalFormPropertyChangedNotifier.Notify += OnAnyPropertyChanged;
-        return base.OnInitializedAsync();
     }
 
     private async Task SaveAsync()

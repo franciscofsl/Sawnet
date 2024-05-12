@@ -5,7 +5,6 @@ public class SelectableItem : SelectableItem<Guid>
 {
     public SelectableItem()
     {
-        
     }
 }
 
@@ -14,9 +13,14 @@ public class SelectableItem<TId> : ISelectableItem
 {
     public SelectableItem()
     {
-        
     }
-    
+
+    public SelectableItem(TId id, string name)
+    {
+        Id = id;
+        Name = name;
+    }
+
     public TId Id { get; set; }
     public string Name { get; set; }
 

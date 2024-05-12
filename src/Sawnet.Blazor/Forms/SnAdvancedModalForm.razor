@@ -3,7 +3,7 @@
 @using Syncfusion.Blazor.Popups
 
 <div class="advanced-modal-form">
-    <SfDialog @ref="_dialog" Width="95vw" Height="100vh" IsModal="true" Visible="false" ShowCloseIcon="false">
+    <SfDialog @ref="_dialog" CssClass="advanced-modal-form" Width="95vw" Height="100vh" IsModal="true" Visible="false" ShowCloseIcon="false">
         <DialogTemplates>
             <Header>
                 <div class="form-header">
@@ -55,12 +55,13 @@
                             Common.UnsavedChanges
                         </div>
                     }
-                    <div class="form-body">
+                    <div class="form-body" style="@(_unsavedChanges ? "max-height: calc(100vh - 271px);" : "\n    max-height: calc(100vh - 228px);")">
                         <div class="main-panel">
                             <SnTypedForm
                                 @ref="_typedForm"
                                 TItem="TItem"
                                 Item="@Item"
+                                OnPropertyChanged="OnAnyPropertyChanged"
                                 Configuration="@Configuration"/>
                             @if (Content is not null)
                             {
@@ -70,7 +71,11 @@
                         @if (Insight != null)
                         {
                             <div class="@($"insight {RightPanelClass}")">
-                                @Insight
+                                <SnInsight TItem="TItem">
+                                    <Details>
+                                        @Insight
+                                    </Details>
+                                </SnInsight>
                             </div>
                         }
                     </div>
@@ -81,3 +86,9 @@
     </SfDialog>
 
 </div>
+
+<style>
+     .advanced-modal-form > .e-dialog {
+        margin-top: 90px !important;
+    }
+</style>

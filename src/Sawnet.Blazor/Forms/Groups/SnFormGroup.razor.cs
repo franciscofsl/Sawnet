@@ -9,6 +9,8 @@ public partial class SnFormGroup<TItem>
 
     [Parameter] public TItem Item { get; set; }
 
+    [Parameter] public EventCallback OnPropertyChanged { get; set; }
+
     private void OnTextBoxValueChanged(string value, FormField field)
     {
         Item?.SetPropertyValue(field.PropertyName, value);
@@ -19,5 +21,13 @@ public partial class SnFormGroup<TItem>
         return group.Columns is FormColumns.One
             ? "one-column"
             : "two-columns";
+    }
+
+    private async Task OnPropertyChangedAsync()
+    {
+        if (OnPropertyChanged.HasDelegate)
+        {
+            await OnPropertyChanged.InvokeAsync();
+        }
     }
 }

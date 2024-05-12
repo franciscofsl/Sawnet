@@ -1,0 +1,12 @@
+﻿.info-item {
+    display: flex;
+}
+
+.info-item-title {
+    width: 150px;
+}
+
+.info-item-value {
+    text-align: right;
+    flex-grow: 1;
+}

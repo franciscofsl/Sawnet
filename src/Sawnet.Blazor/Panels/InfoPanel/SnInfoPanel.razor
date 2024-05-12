@@ -1,0 +1,19 @@
+﻿@inherits Sawnet.Blazor.SnComponentBase
+
+<div class="panel">
+    <div class="title">
+        @if (!string.IsNullOrEmpty(Icon))
+        {
+            <div class="icon-container">
+                <i class="@Icon"></i>
+            </div>
+        }
+        <span>@Title</span>
+    </div>
+    <div class="content">
+        @if (Items != null)
+        {
+            @Items
+        }
+    </div>
+</div>
