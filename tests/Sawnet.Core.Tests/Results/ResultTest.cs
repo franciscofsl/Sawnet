@@ -8,7 +8,7 @@ public class ResultTest
     public void Should_Not_Create_Ok_Result_With_Error()
     {
         FluentActions
-            .Invoking(() => _ = new Result(true, new Error("Code", "Message")))
+            .Invoking(() => _ = new Result(true, new Error("Code")))
             .Should()
             .Throw<InvalidOperationException>();
     }
@@ -34,7 +34,7 @@ public class ResultTest
     [Fact]
     public void Should_Add_Error()
     {
-        var result = Result.Failure(new Error("Code", "Message"));
+        var result = Result.Failure(new Error("Code"));
 
         result.IsFailure.Should().BeTrue();
         result.Error.Should().NotBeNull();
@@ -51,7 +51,7 @@ public class ResultTest
     [Fact]
     public void Generic_Failure_Result_Should_Not_Have_Value_In_Parameter()
     {
-        var result = Result.Failure<string>(new Error("Code", "Message"));
+        var result = Result.Failure<string>(new Error("Code"));
 
         FluentActions
             .Invoking(() => _ = result.Value)
@@ -62,7 +62,7 @@ public class ResultTest
     [Fact]
     public void Error_ToString_Should_Return_Code()
     {
-        var error = new Error("Error", "Message");
+        var error = new Error("Error");
 
         error.ToString().Should().Be(error.Code);
     }
