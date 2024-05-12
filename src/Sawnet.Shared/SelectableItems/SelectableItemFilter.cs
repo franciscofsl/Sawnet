@@ -1,6 +1,9 @@
-﻿namespace Sawnet.Shared.SelectableItems;
+﻿using System.Runtime.Serialization;
 
+namespace Sawnet.Shared.SelectableItems;
+
+[DataContract]
 public class SelectableItemFilter
 {
-    public string Filter { get; set; }
+    [DataMember(Order = 1)] public string Filter { get; set; }
 }
