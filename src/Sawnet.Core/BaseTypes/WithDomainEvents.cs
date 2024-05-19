@@ -2,7 +2,7 @@ using Sawnet.Core.Events;
 
 namespace Sawnet.Core.BaseTypes;
 
-public class WithDomainEvents
+public abstract class WithDomainEvents
 {
     private readonly List<IDomainEvent> _domainEvents = new();
 
