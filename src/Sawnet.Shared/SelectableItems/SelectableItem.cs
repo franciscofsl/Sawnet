@@ -3,14 +3,6 @@
 namespace Sawnet.Shared.SelectableItems;
 
 [ExcludeFromCodeCoverage]
-public class SelectableItem : SelectableItem<Guid>
-{
-    public SelectableItem()
-    {
-    }
-}
-
-[ExcludeFromCodeCoverage]
 [DataContract]
 public class SelectableItem<TId> : ISelectableItem
 {
