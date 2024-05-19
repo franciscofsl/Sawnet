@@ -1,0 +1,24 @@
+﻿@inherits SnComponentBase
+
+<div class="tiny-info-panel-container">
+    <div class="text" style="border-left: 6px solid @Color;">
+
+        <span class="description">@Description</span>
+
+        <div class="counter">
+            <span class="value">@Value</span>
+            <span class="label">@ShortDescription</span>
+            @* <span class="change-link">(change)</span> *@
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Color { get; set; }
+
+    [Parameter] public string Description { get; set; }
+
+    [Parameter] public string Value { get; set; }
+
+    [Parameter] public string ShortDescription { get; set; }
+}
