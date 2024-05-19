@@ -1,0 +1,11 @@
+﻿.indicator {
+    display: flex;
+    align-items: center;
+}
+
+.circle {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
