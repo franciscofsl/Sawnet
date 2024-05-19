@@ -9,5 +9,7 @@
     <ItemGroup>
       <PackageReference Include="System.ServiceModel.Primitives" />
     </ItemGroup>
-
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
+    </ItemGroup>
 </Project>
