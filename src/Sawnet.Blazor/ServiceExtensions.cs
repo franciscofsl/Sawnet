@@ -73,7 +73,7 @@ public static class ServiceExtensions
                 .FromAssemblies(assemblies)
                 .AddClasses(classes => classes.AssignableTo(typeof(EventNotifier)))
                 .AsSelf()
-                .WithTransientLifetime());
+                .WithSingletonLifetime());
     }
 
     public static void AddRestClient<TService>(this WebAssemblyHostBuilder builder, string uri = null)
@@ -112,7 +112,6 @@ public static class ServiceExtensions
                 _.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 _.JsonSerializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
                 _.JsonSerializerOptions.WriteIndented = false;
-
                 _.JsonSerializerOptions.Converters.Add(new TimespanJsonConverter());
             });
         }
