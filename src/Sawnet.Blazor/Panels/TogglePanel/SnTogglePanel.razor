@@ -2,7 +2,7 @@
 
 <div class="collapsible-panel">
     <div class="panel-header" @onclick="TogglePanel">
-        <span class="chevron @(_collapsed ? "down" : "up")"></span>
+        <i class="fas fa-chevron-@(_collapsed ? "down" : "up")" style="margin-right: 4px; margin-left: 4px;"></i>
         @Text
     </div>
 
