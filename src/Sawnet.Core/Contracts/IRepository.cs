@@ -16,8 +16,8 @@ public interface IRepository<TAggregateRoot, TEntityId>
 
     public Task DeleteAsync(TAggregateRoot entity, bool save = true);
 
-    Task<List<TAggregateRoot>> GetListAsync(Expression<Func<TAggregateRoot, bool>> filter = null);
+    Task<List<TAggregateRoot>> GetListAsync(Filter<TAggregateRoot> filter = null);
 
     Task<List<TReturnModel>> GetListAsync<TReturnModel>(Expression<Func<TAggregateRoot, TReturnModel>> map,
-        Specification<TAggregateRoot> filter = null);
+        Filter<TAggregateRoot> filter = null);
 }

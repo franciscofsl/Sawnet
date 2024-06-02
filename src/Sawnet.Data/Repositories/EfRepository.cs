@@ -21,7 +21,7 @@ public class EfRepository<TAggregateRoot, TEntityId>
 
     public async Task<TAggregateRoot> GetAsync(TEntityId id)
     {
-        var query = await GetQueryableAsync();
+        var query = GetQueryableAsync();
 
         var entity = await query.FirstOrDefaultAsync(_ => _.Id == id);
 
@@ -33,29 +33,29 @@ public class EfRepository<TAggregateRoot, TEntityId>
         return entity;
     }
 
-    public async Task<List<TAggregateRoot>> GetListAsync(Expression<Func<TAggregateRoot, bool>> filter = null)
+    public Task<List<TAggregateRoot>> GetListAsync(Filter<TAggregateRoot> filter = null)
     {
-        var query = await GetQueryableAsync();
-
-        if (filter is not null)
-        {
-            query = query.Where(filter);
-        }
-
-        return await query.ToListAsync();
-    }
-
-    public async Task<List<TReturnModel>> GetListAsync<TReturnModel>(Expression<Func<TAggregateRoot, TReturnModel>> map,
-        Specification<TAggregateRoot> filter = null)
-    {
-        var query = await GetQueryableAsync();
+        var query = GetQueryableAsync();
 
         if (filter is not null)
         {
             query = query.Where(filter.ToExpression());
         }
 
-        return await query.Select(map).ToListAsync();
+        return query.ToListAsync();
+    }
+
+    public Task<List<TReturnModel>> GetListAsync<TReturnModel>(Expression<Func<TAggregateRoot, TReturnModel>> map,
+        Filter<TAggregateRoot> filter = null)
+    {
+        var query = GetQueryableAsync();
+
+        if (filter is not null)
+        {
+            query = query.Where(filter.ToExpression());
+        }
+
+        return query.Select(map).ToListAsync();
     }
 
     public async Task<TAggregateRoot> InsertAsync(TAggregateRoot entity, bool save = true)
@@ -87,13 +87,13 @@ public class EfRepository<TAggregateRoot, TEntityId>
         }
     }
 
-    protected Task<IQueryable<TAggregateRoot>> GetQueryableAsync()
+    protected IQueryable<TAggregateRoot> GetQueryableAsync()
     {
         var query = DbContext.Set<TAggregateRoot>().AsQueryable();
 
         query = ApplyIncludes(query);
 
-        return Task.FromResult(query);
+        return query;
     }
 
     protected IQueryable<TAggregateRoot> GetQueryable()
