@@ -21,7 +21,7 @@ public class Filter<TItem> where TItem : class
         return _expression.Compile()(model);
     }
 
-    public Filter<TItem> If(bool filter, Func<TItem, bool> condition)
+    public Filter<TItem> WhereIf(bool filter, Func<TItem, bool> condition)
     {
         if (!filter)
         {
@@ -39,7 +39,7 @@ public class Filter<TItem> where TItem : class
         return this;
     }
     
-    public Filter<TItem> Or(bool filter, Func<TItem, bool> condition)
+    public Filter<TItem> OrIf(bool filter, Func<TItem, bool> condition)
     {
         if (!filter)
         {

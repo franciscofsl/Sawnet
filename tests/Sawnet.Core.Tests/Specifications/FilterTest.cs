@@ -14,7 +14,7 @@ public class FilterTest
 
         var criteria = Filter<Item>
             .For<Item>()
-            .If(true, _ => _.Code == item.Code);
+            .WhereIf(true, _ => _.Code == item.Code);
 
         criteria.IsSatisfiedBy(item).Should().BeTrue();
     }
@@ -29,7 +29,7 @@ public class FilterTest
 
         var criteria = Filter<Item>
             .For<Item>()
-            .If(false, _ => _.Code == item.Code);
+            .WhereIf(false, _ => _.Code == item.Code);
 
         criteria.IsSatisfiedBy(item).Should().BeTrue();
     }
@@ -44,8 +44,8 @@ public class FilterTest
 
         var criteria = Filter<Item>
             .For<Item>()
-            .Or(true, _ => _.Code.Contains("New"))
-            .Or(true, _ => _.Code.Contains("Code"));
+            .OrIf(true, _ => _.Code.Contains("New"))
+            .OrIf(true, _ => _.Code.Contains("Code"));
 
         criteria.IsSatisfiedBy(item).Should().BeTrue();
     }
