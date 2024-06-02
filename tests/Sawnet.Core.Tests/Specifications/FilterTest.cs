@@ -34,6 +34,22 @@ public class FilterTest
         criteria.IsSatisfiedBy(item).Should().BeTrue();
     }
 
+    [Fact]
+    public void Should_Satisfy_Or_Filter()
+    {
+        var item = new Item
+        {
+            Code = "New Code"
+        };
+
+        var criteria = Filter<Item>
+            .For<Item>()
+            .Or(true, _ => _.Code.Contains("New"))
+            .Or(true, _ => _.Code.Contains("Code"));
+
+        criteria.IsSatisfiedBy(item).Should().BeTrue();
+    }
+
     private class Item
     {
         public string Code { get; set; }

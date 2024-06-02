@@ -38,4 +38,22 @@ public class Filter<TItem> where TItem : class
 
         return this;
     }
+    
+    public Filter<TItem> Or(bool filter, Func<TItem, bool> condition)
+    {
+        if (!filter)
+        {
+            return this;
+        }
+
+        var parameter = _expression.Parameters[0];
+        var newCondition = Expression.Invoke(Expression.Constant(condition), parameter);
+
+        _expression = Expression.Lambda<Func<TItem, bool>>(
+            Expression.Or(_expression.Body, newCondition),
+            parameter
+        );
+
+        return this;
+    }
 }
