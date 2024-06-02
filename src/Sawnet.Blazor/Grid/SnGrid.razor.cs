@@ -1,11 +1,15 @@
 ﻿using System.Collections.ObjectModel;
+using Sawnet.Blazor.Forms.Configurators;
+using Sawnet.Blazor.Forms.Groups;
+using Sawnet.Blazor.Shared.Grpc.Filters;
 using Syncfusion.Blazor.Grids;
 
 namespace Sawnet.Blazor.Grid;
 
-public partial class SnGrid<TItem, TSetup> : SnComponentBase
+public partial class SnGrid<TItem, TSetup, TFilter> : SnComponentBase
     where TItem : class
     where TSetup : GridSetup<TItem>
+    where TFilter : GridFilter
 {
     private GridPageSettings _pageSettings;
     private SfGrid<TItem> _grid;
@@ -16,7 +20,7 @@ public partial class SnGrid<TItem, TSetup> : SnComponentBase
 
     [Parameter] public GridSetup<TItem> Setup { get; set; }
 
-    [Parameter] public Func<Task<GridData<TItem>>> GetDataFn { get; set; }
+    [Parameter] public Func<TFilter, Task<GridData<TItem>>> GetDataFn { get; set; }
 
     [Parameter] public GridSelectionType SelectionMode { get; set; } = GridSelectionType.Single;
 
@@ -27,6 +31,16 @@ public partial class SnGrid<TItem, TSetup> : SnComponentBase
     [Parameter] public EventCallback<TItem> OnDeleteClicked { get; set; }
 
     [Parameter] public EventCallback OnSelectionChanged { get; set; }
+
+    [Parameter] public FieldConfigurator<TFilter> FilterConfiguration { get; set; }
+
+    [Parameter] public RenderFragment Insight { get; set; }
+
+    private bool _isRightPanelVisible = false;
+    private bool _isLeftPanelVisible = false;
+    private string RightVisibleCssClass => _isRightPanelVisible ? "visible" : string.Empty;
+    private string LeftVisibleCssClass => _isLeftPanelVisible ? "visible" : string.Empty;
+    public TFilter Filter { get; } = Activator.CreateInstance<TFilter>();
 
     public TItem SelectedItem => _grid?.SelectedRecords.FirstOrDefault();
 
@@ -43,6 +57,16 @@ public partial class SnGrid<TItem, TSetup> : SnComponentBase
         {
             await Refresh();
         }
+    }
+
+    private void ToggleRightPanel()
+    {
+        _isRightPanelVisible = !_isRightPanelVisible;
+    }
+
+    private void ToggleLeftPanel()
+    {
+        _isLeftPanelVisible = !_isLeftPanelVisible;
     }
 
     private async Task OnSelectionChangedAsync()
@@ -64,7 +88,7 @@ public partial class SnGrid<TItem, TSetup> : SnComponentBase
 
     private async Task GetData()
     {
-        var resultTask = GetDataFn.Invoke();
+        var resultTask = GetDataFn.Invoke(Filter);
         var items = await resultTask;
         Data = new ObservableCollection<TItem>(items.Items);
         StateHasChanged();
@@ -93,5 +117,18 @@ public partial class SnGrid<TItem, TSetup> : SnComponentBase
         {
             await OnDeleteClicked.InvokeAsync(SelectedItem);
         }
+    }
+
+    private FormConfiguration<TFilter> GetFilterConfiguration()
+    {
+        var defaultGroups = new List<FormGroup<TFilter>>()
+        {
+            new()
+            {
+                Columns = FormColumns.One,
+                Fields = FilterConfiguration.Fields
+            }
+        };
+        return new FormConfiguration<TFilter>(defaultGroups);
     }
 }

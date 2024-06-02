@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Sawnet.Core.BaseTypes;
 using Sawnet.Core.Contracts;
+using Sawnet.Core.Specifications;
 using Sawnet.Shared.Exceptions;
 
 namespace Sawnet.Data.Repositories;
@@ -44,15 +45,14 @@ public class EfRepository<TAggregateRoot, TEntityId>
         return await query.ToListAsync();
     }
 
-    public async Task<List<TReturnModel>> GetListAsync<TReturnModel>(
-        Expression<Func<TAggregateRoot, TReturnModel>> map,
-        Expression<Func<TAggregateRoot, bool>> filter = null)
+    public async Task<List<TReturnModel>> GetListAsync<TReturnModel>(Expression<Func<TAggregateRoot, TReturnModel>> map,
+        Specification<TAggregateRoot> filter = null)
     {
         var query = await GetQueryableAsync();
 
         if (filter is not null)
         {
-            query = query.Where(filter);
+            query = query.Where(filter.ToExpression());
         }
 
         return await query.Select(map).ToListAsync();
