@@ -28,6 +28,8 @@ public class Result
     public static Result<TValue> Ok<TValue>(TValue value) => new(value, true, Error.None);
 
     public static Result Failure(Error error) => new(false, error);
+    
+    public static Result Failure(string error) => new(false, new Error(error));
 
     public static Result<TValue> Failure<TValue>(Error error) => new(default, false, error);
     

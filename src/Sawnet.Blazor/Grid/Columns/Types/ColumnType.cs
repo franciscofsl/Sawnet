@@ -3,5 +3,6 @@
 public enum ColumnType
 {
     Text,
-    DateOnly
+    DateOnly,
+    Color
 }

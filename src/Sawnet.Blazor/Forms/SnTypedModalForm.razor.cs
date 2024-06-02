@@ -33,5 +33,7 @@ public partial class SnTypedModalForm<TItem>
         {
             await OnSaveClicked.InvokeAsync(_typedForm.Item);
         }
+
+        Close().Forget();
     }
 }

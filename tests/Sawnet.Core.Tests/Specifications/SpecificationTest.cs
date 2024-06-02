@@ -27,7 +27,7 @@ public class SpecificationTest
 
         satisfy.Should().BeFalse();
     }
-
+ 
     private class TestSpecification : Specification<string>
     {
         public override Expression<Func<string, bool>> ToExpression()

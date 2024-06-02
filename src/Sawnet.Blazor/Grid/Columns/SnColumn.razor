@@ -25,6 +25,10 @@
                     {
                         <SnDateTimeColumnTemplate Column="@dateColumn" Item="@item"/>
                     }
+                    else if (Setup is ColorColumn colorColumn)
+                    {
+                        <SnColorColumn Column="@colorColumn" Item="@item"/>
+                    }
                 }
             </Template>
         </GridColumn>

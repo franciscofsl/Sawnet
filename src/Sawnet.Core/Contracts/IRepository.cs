@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Sawnet.Core.BaseTypes;
+using Sawnet.Core.Specifications;
 
 namespace Sawnet.Core.Contracts;
 
@@ -14,10 +15,9 @@ public interface IRepository<TAggregateRoot, TEntityId>
     public Task UpdateAsync(TAggregateRoot entity, bool save = true);
 
     public Task DeleteAsync(TAggregateRoot entity, bool save = true);
-    
-    Task<List<TAggregateRoot>> GetListAsync(Expression<Func<TAggregateRoot, bool>> filter = null);
 
-    Task<List<TReturnModel>> GetListAsync<TReturnModel>(
-        Expression<Func<TAggregateRoot, TReturnModel>> map,
-        Expression<Func<TAggregateRoot, bool>> filter = null);
+    Task<List<TAggregateRoot>> GetListAsync(Filter<TAggregateRoot> filter = null);
+
+    Task<List<TReturnModel>> GetListAsync<TReturnModel>(Expression<Func<TAggregateRoot, TReturnModel>> map,
+        Filter<TAggregateRoot> filter = null);
 }

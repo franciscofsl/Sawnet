@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Sawnet.Core.BaseTypes;
 using Sawnet.Core.Contracts;
+using Sawnet.Core.Specifications;
 using Sawnet.Shared.Exceptions;
 
 namespace Sawnet.Data.Repositories;
@@ -20,7 +21,7 @@ public class EfRepository<TAggregateRoot, TEntityId>
 
     public async Task<TAggregateRoot> GetAsync(TEntityId id)
     {
-        var query = await GetQueryableAsync();
+        var query = GetQueryableAsync();
 
         var entity = await query.FirstOrDefaultAsync(_ => _.Id == id);
 
@@ -32,30 +33,31 @@ public class EfRepository<TAggregateRoot, TEntityId>
         return entity;
     }
 
-    public async Task<List<TAggregateRoot>> GetListAsync(Expression<Func<TAggregateRoot, bool>> filter = null)
+    public Task<List<TAggregateRoot>> GetListAsync(Filter<TAggregateRoot> filter = null)
     {
-        var query = await GetQueryableAsync();
+        var query = GetQueryableAsync();
 
         if (filter is not null)
         {
-            query = query.Where(filter);
+            var expression = filter.ToExpression();
+            query = query.Where(expression);
         }
 
-        return await query.ToListAsync();
+        return query.ToListAsync();
     }
 
-    public async Task<List<TReturnModel>> GetListAsync<TReturnModel>(
-        Expression<Func<TAggregateRoot, TReturnModel>> map,
-        Expression<Func<TAggregateRoot, bool>> filter = null)
+    public Task<List<TReturnModel>> GetListAsync<TReturnModel>(Expression<Func<TAggregateRoot, TReturnModel>> map,
+        Filter<TAggregateRoot> filter = null)
     {
-        var query = await GetQueryableAsync();
+        var query = GetQueryableAsync();
 
         if (filter is not null)
         {
-            query = query.Where(filter);
+            var expressionFilter = filter.ToExpression();
+            query = query.Where(expressionFilter);
         }
 
-        return await query.Select(map).ToListAsync();
+        return query.Select(map).ToListAsync();
     }
 
     public async Task<TAggregateRoot> InsertAsync(TAggregateRoot entity, bool save = true)
@@ -87,13 +89,13 @@ public class EfRepository<TAggregateRoot, TEntityId>
         }
     }
 
-    protected Task<IQueryable<TAggregateRoot>> GetQueryableAsync()
+    protected IQueryable<TAggregateRoot> GetQueryableAsync()
     {
         var query = DbContext.Set<TAggregateRoot>().AsQueryable();
 
         query = ApplyIncludes(query);
 
-        return Task.FromResult(query);
+        return query;
     }
 
     protected IQueryable<TAggregateRoot> GetQueryable()

@@ -3,14 +3,6 @@
 namespace Sawnet.Shared.SelectableItems;
 
 [ExcludeFromCodeCoverage]
-public class SelectableItem : SelectableItem<Guid>
-{
-    public SelectableItem()
-    {
-    }
-}
-
-[ExcludeFromCodeCoverage]
 [DataContract]
 public class SelectableItem<TId> : ISelectableItem
 {
@@ -27,6 +19,8 @@ public class SelectableItem<TId> : ISelectableItem
     [DataMember(Order = 1)] public TId Id { get; set; }
 
     [DataMember(Order = 2)] public string Name { get; set; }
+    
+    [DataMember(Order = 3)] public string Color { get; set; }
 
     public override bool Equals(object obj)
     {
