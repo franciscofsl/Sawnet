@@ -1,133 +1,89 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Sawnet.Core.Specifications;
 
 public class Filter<TItem> where TItem : class
 {
-    private Expression<Func<TItem, bool>> _expression;
-
-    private Filter()
-    {
-        _expression = item => true;
-    }
+    private Expression<Func<TItem, bool>> _filterExpression = item => true;
 
     public static Filter<TItem> Create()
     {
         return new Filter<TItem>();
     }
 
-    public bool IsSatisfiedBy(TItem model)
+    public IQueryable<TItem> Apply(IQueryable<TItem> query)
     {
-        return _expression.Compile()(model);
+        return query.Where(_filterExpression);
     }
 
-    public Filter<TItem> Where(Func<TItem, bool> condition)
+    public Filter<TItem> Where(Expression<Func<TItem, bool>> condition)
     {
-        var parameter = _expression.Parameters[0];
-        var newCondition = Expression.Invoke(Expression.Constant(condition), parameter);
-
-        _expression = Expression.Lambda<Func<TItem, bool>>(
-            Expression.AndAlso(_expression.Body, newCondition),
-            parameter
-        );
-
+        _filterExpression = _filterExpression.And(condition);
         return this;
     }
 
-    public Filter<TItem> WhereIf(bool filter, Func<TItem, bool> condition)
+    public Filter<TItem> WhereIf(bool shouldApply, Expression<Func<TItem, bool>> condition)
     {
-        if (!filter)
-        {
-            return this;
-        }
-
-        return Where(condition);
-    }
-
-    public Filter<TItem> Or(Func<TItem, bool> condition)
-    {
-        var parameter = _expression.Parameters[0];
-        var newCondition = Expression.Invoke(Expression.Constant(condition), parameter);
-
-        _expression = Expression.Lambda<Func<TItem, bool>>(
-            Expression.Or(_expression.Body, newCondition),
-            parameter
-        );
-
+        if (shouldApply)
+            _filterExpression = _filterExpression.And(condition);
         return this;
     }
 
-    public Filter<TItem> OrIf(bool filter, Func<TItem, bool> condition)
+    public Filter<TItem> Or(Expression<Func<TItem, bool>> condition)
     {
-        if (!filter)
-        {
-            return this;
-        }
-
-        return Or(condition);
-    }
-
-    public Filter<TItem> Not(Func<TItem, bool> condition)
-    {
-        var parameter = _expression.Parameters[0];
-        var newCondition = Expression.Not(Expression.Invoke(Expression.Constant(condition), parameter));
-
-        _expression = Expression.Lambda<Func<TItem, bool>>(
-            Expression.AndAlso(_expression.Body, newCondition),
-            parameter
-        );
-
+        _filterExpression = _filterExpression.Or(condition);
         return this;
     }
 
-    public Filter<TItem> NotIf(bool filter, Func<TItem, bool> condition)
+    public Filter<TItem> OrIf(bool shouldApply, Expression<Func<TItem, bool>> condition)
     {
-        if (!filter)
-        {
-            return this;
-        }
-
-        return Not(condition);
-    }
-
-    public Filter<TItem> And(Func<TItem, bool> condition)
-    {
-        var parameter = _expression.Parameters[0];
-        var newCondition = Expression.Invoke(Expression.Constant(condition), parameter);
-
-        _expression = Expression.Lambda<Func<TItem, bool>>(
-            Expression.AndAlso(_expression.Body, newCondition),
-            parameter
-        );
-
+        if (shouldApply)
+            _filterExpression = _filterExpression.Or(condition);
         return this;
     }
 
-    public Filter<TItem> AndIf(bool filter, Func<TItem, bool> condition)
+    public Filter<TItem> Not(Expression<Func<TItem, bool>> condition)
     {
-        if (!filter)
-        {
-            return this;
-        }
-
-        return And(condition);
+        _filterExpression = _filterExpression.AndNot(condition);
+        return this;
     }
 
-    public Filter<TItem> Combine(Filter<TItem> other)
+    public Filter<TItem> NotIf(bool shouldApply, Expression<Func<TItem, bool>> condition)
     {
-        var parameter = _expression.Parameters[0];
-        var otherBody = Expression.Invoke(other._expression, parameter);
+        if (shouldApply)
+            _filterExpression = _filterExpression.AndNot(condition);
+        return this;
+    }
 
-        _expression = Expression.Lambda<Func<TItem, bool>>(
-            Expression.AndAlso(_expression.Body, otherBody),
-            parameter
-        );
+    public Filter<TItem> And(Expression<Func<TItem, bool>> condition)
+    {
+        _filterExpression = _filterExpression.And(condition);
+        return this;
+    }
 
+    public Filter<TItem> AndIf(bool shouldApply, Expression<Func<TItem, bool>> condition)
+    {
+        if (shouldApply)
+            _filterExpression = _filterExpression.And(condition);
+        return this;
+    }
+
+    public Filter<TItem> Combine(Filter<TItem> otherFilter)
+    {
+        _filterExpression = _filterExpression.And(otherFilter._filterExpression);
         return this;
     }
 
     public Expression<Func<TItem, bool>> ToExpression()
     {
-        return _expression;
+        return _filterExpression;
+    }
+
+    public bool IsSatisfiedBy(TItem item)
+    {
+        var compiledPredicate = _filterExpression.Compile();
+        return compiledPredicate(item);
     }
 }

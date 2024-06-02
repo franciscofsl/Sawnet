@@ -39,7 +39,8 @@ public class EfRepository<TAggregateRoot, TEntityId>
 
         if (filter is not null)
         {
-            query = query.Where(filter.ToExpression());
+            var expression = filter.ToExpression();
+            query = query.Where(expression);
         }
 
         return query.ToListAsync();
@@ -52,7 +53,8 @@ public class EfRepository<TAggregateRoot, TEntityId>
 
         if (filter is not null)
         {
-            query = query.Where(filter.ToExpression());
+            var expressionFilter = filter.ToExpression();
+            query = query.Where(expressionFilter);
         }
 
         return query.Select(map).ToListAsync();
