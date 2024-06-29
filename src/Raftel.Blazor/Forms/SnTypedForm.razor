@@ -1,0 +1,26 @@
+﻿@typeparam TItem where TItem : class
+@using Raftel.Blazor.Forms.Groups
+@using Raftel.Blazor.Panels.TogglePanel
+@using Raftel.Blazor.Forms.Configurators
+@inherits SnComponentBase
+
+<div class="typed-form">
+    @if (Configuration != null)
+    {
+        foreach (var group in Configuration.Groups)
+        {
+            if (group.Collapsible)
+            {
+                <SnTogglePanel StateStoreKey="@($"{typeof(TItem).Name}-{group.Title}")" Text="@group.Title" Icon="@group.Icon">
+                    <Content>
+                        <SnFormGroup TItem="TItem" Item="Item" Group="@group" OnPropertyChanged="OnPropertyChangedAsync"/>
+                    </Content>
+                </SnTogglePanel>
+            }
+            else
+            {
+                <SnFormGroup TItem="TItem" Item="Item" Group="@group" OnPropertyChanged="OnPropertyChangedAsync"/>
+            }
+        }
+    }
+</div>

@@ -1,0 +1,93 @@
+﻿@inherits Raftel.Blazor.SnComponentBase
+@typeparam TItem where TItem : class
+@using Syncfusion.Blazor.Popups
+
+<div class="advanced-modal-form">
+    <SfDialog @ref="_dialog" CssClass="advanced-modal-form" Width="95vw" Height="100vh" IsModal="true" Visible="false" ShowCloseIcon="false">
+        <DialogTemplates>
+            <Header>
+                <div class="form-header">
+                    <button class="back-button" @onclick="CloseAsync">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+
+                    <div class="center-buttons">
+                        <button class="save" @onclick="@SaveAsync">
+                            <i class="fas fa-save"></i>
+                        </button>
+                        <button class="delete" @onclick="@DeleteAsync">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-title">
+                    @Title
+                </div>
+                <div class="entity-description">
+                    @Item?.ToString();
+                </div>
+            </Header>
+            <Content>
+                <div class="form-body-container">
+                    <div class="body-toolbar">
+                        <div class="toolbar-left-items">
+                            @if (LeftToolbarItems != null)
+                            {
+                                @LeftToolbarItems(Item)
+                            }
+                        </div>
+                        <div class="toolbar-right-items">
+                            @if (RightToolbarItems != null)
+                            {
+                                @RightToolbarItems(Item)
+                            }
+                            @if (Insight != null)
+                            {
+                                <SnLinkButton OnClick="@ToggleRightPanel" Icon="fas fa-info"/>
+                            }
+                        </div>
+                    </div>
+                    @if (_unsavedChanges)
+                    {
+                        <div class="unsaved-changes-panel">
+                            <i class="fas fa-exclamation-circle"></i>
+                            Common.UnsavedChanges
+                        </div>
+                    }
+                    <div class="form-body" style="@(_unsavedChanges ? "max-height: calc(100vh - 271px);" : "\n    max-height: calc(100vh - 228px);")">
+                        <div class="main-panel">
+                            <SnTypedForm
+                                @ref="_typedForm"
+                                TItem="TItem"
+                                Item="@Item"
+                                OnPropertyChanged="OnAnyPropertyChanged"
+                                Configuration="@Configuration"/>
+                            @if (Content is not null)
+                            {
+                                @Content(Item)
+                            }
+                        </div>
+                        @if (Insight != null)
+                        {
+                            <div class="@($"insight {RightPanelClass}")">
+                                <SnInsight TItem="TItem">
+                                    <Details>
+                                        @Insight
+                                    </Details>
+                                </SnInsight>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </Content>
+        </DialogTemplates>
+        <DialogAnimationSettings Effect="@DialogEffect.Fade"></DialogAnimationSettings>
+    </SfDialog>
+
+</div>
+
+<style>
+     .advanced-modal-form > .e-dialog {
+        margin-top: 90px !important;
+    }
+</style>

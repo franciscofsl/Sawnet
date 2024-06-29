@@ -1,0 +1,20 @@
+﻿@inherits Raftel.Blazor.SnComponentBase
+@typeparam TItem where TItem : class
+
+<div class="typed-modal-form">
+    <SnModalForm
+        @ref="_modalForm"
+        Title="@Title"
+        OnPrimaryButtonClicked="SaveAsync"
+        Height="@Height"
+        Width="@Width"
+        HasFooter="true"
+        PrimaryButtonIcon="fas fa-save"
+        PrimaryButtonText="Common.Save">
+        <Body>
+        <SnTypedForm @ref="_typedForm"
+                     TItem="TItem"
+                     Configuration="@Configuration"/>
+        </Body>
+    </SnModalForm>
+</div>
