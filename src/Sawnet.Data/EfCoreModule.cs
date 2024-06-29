@@ -18,7 +18,7 @@ public class EfCoreModule : SawnetModule
             .Where(_ =>
             {
                 var name = _.GetName().Name;
-                return name != null && (name.Contains("Core") || name.Contains("Data"));
+                return name != null && (name.Contains(".Core") || name.Contains(".Data"));
             })
             .ToList();
         
