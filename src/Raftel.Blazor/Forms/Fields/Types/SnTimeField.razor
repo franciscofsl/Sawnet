@@ -1,0 +1,35 @@
+﻿@using Syncfusion.Blazor.Calendars
+<div class="Raftel-time-picker">
+<SfTimePicker
+        TValue="TimeOnly?"
+        Value="@Value"
+        ShowClearButton="true"
+        FullScreen="true"
+        Format="HH:mm"
+        Min="@DateTime.Today.Date.Add((Min ?? TimeOnly.MinValue).ToTimeSpan())"
+        Max="@DateTime.Today.Date.Add((Max ?? TimeOnly.MaxValue).ToTimeSpan())"
+        ValueChanged="(args) => OnValueChangedAsync(args)"
+        Enabled="@Enabled">
+    </SfTimePicker>
+</div>
+
+@code {
+    [Parameter] public TimeOnly? Value { get; set; }
+
+    [Parameter] public TimeOnly? Min { get; set; }
+
+    [Parameter] public TimeOnly? Max { get; set; }
+
+    [Parameter] public EventCallback<TimeOnly?> OnValueChanged { get; set; }
+
+    [Parameter] public bool Enabled { get; set; } = true;
+
+    private async Task OnValueChangedAsync(TimeOnly? value)
+    {
+        if (OnValueChanged.HasDelegate)
+        {
+            await OnValueChanged.InvokeAsync(value);
+        }
+    }
+
+}

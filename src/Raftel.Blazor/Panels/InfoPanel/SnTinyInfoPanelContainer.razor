@@ -1,0 +1,22 @@
+﻿@using Raftel.Blazor.Panels.TogglePanel
+@inherits SnComponentBase
+
+<SnTogglePanel Text="@Text" Icon="@Icon" StateStoreKey="@StateStoreKey">
+    <Content>
+        <div class="tiny-panel-container">
+            @if (Items != null)
+            {
+                @Items
+            }
+        </div>
+    </Content>
+</SnTogglePanel>
+
+@code{
+
+    [Parameter] public string Text { get; set; }
+
+    [Parameter] public string Icon { get; set; }
+
+    [Parameter] public RenderFragment Items { get; set; }
+}

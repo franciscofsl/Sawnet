@@ -1,0 +1,10 @@
+﻿@inherits SnComponentBase
+
+<div class="Raftel-button">
+    <SfButton CssClass="@($"e-flat {GetButtonStyle()}")"
+              Content="@Text"
+              @onclick="OnButtonClickedAsync"
+              Disabled="@Disabled"
+              IconCss="@Icon"
+              IsPrimary="true"/>
+</div>

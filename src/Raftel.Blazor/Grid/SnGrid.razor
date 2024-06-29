@@ -1,0 +1,98 @@
+﻿@typeparam TItem where TItem : class
+    @typeparam TSetup where TSetup : GridSetup<TItem> 
+    @typeparam TFilter where TFilter : Shared.Grpc.Filters.GridFilter
+@using Raftel.Blazor.Grid.Columns
+@inherits SnComponentBase
+
+<div class="sn-grid-container">
+    <div class="body-toolbar">
+        <div class="toolbar-left-items">
+            @if (OnCreateClicked.HasDelegate)
+            {
+                <SnLinkButton
+                    Icon="fas fa-plus"
+                    Text="Common.Add"
+                    OnClick="@(async () => await OnCreateClickedAsync())"/>
+            }
+            @if (OnEditClicked.HasDelegate)
+            {
+                <SnLinkButton
+                    Icon="fas fa-pen"
+                    Text="Common.Edit"
+                    Disabled="@(SelectedItem is null)"
+                    OnClick="@(async () => await OnEditClickedAsync())"/>
+            }
+            @if (OnDeleteClicked.HasDelegate)
+            {
+                <SnLinkButton
+                    Icon="fas fa-trash-alt"
+                    Text="Common.Delete"
+                    Disabled="@(SelectedItem is null)"
+                    OnClick="@(async () => await OnDeleteClickedAsync())"/>
+            }
+
+            @if (FilterConfiguration != null)
+            {
+                <SnLinkButton OnClick="@ToggleLeftPanel" Icon="fas fa-filter" IconColor="red"/>
+            }
+        </div>
+        <div class="toolbar-right-items">
+            @if (Insight != null)
+            {
+                <SnLinkButton OnClick="@ToggleRightPanel" Icon="fas fa-info"/>
+            }
+        </div>
+    </div>
+    <div class="grid-container">
+        @if (FilterConfiguration != null && _isLeftPanelVisible)
+        {
+            <div class="@($"grid-filter {LeftVisibleCssClass}")">
+                <SnTypedForm
+                    TItem="TFilter"
+                    Configuration="@GetFilterConfiguration()"
+                    Item="Filter"
+                    OnPropertyChanged="Refresh"/>
+            </div>
+        }
+        <div class="grid-body">
+            <SfGrid
+                @ref="_grid"
+                TValue="TItem"
+                DataSource="Data"
+                AllowSelection="true"
+                AllowPaging="true"
+                Width="100%"
+                RowHeight="30">
+                <GridSelectionSettings Type="GetSelectionType()" Mode="Syncfusion.Blazor.Grids.SelectionMode.Row"/>
+
+                <GridPageSettings @ref="_pageSettings" PageSize="25"/>
+
+                <GridEvents
+                    RowDropped="OnSelectionChangedAsync"
+                    RowSelected="OnSelectionChangedAsync"
+                    RowDeselected="OnSelectionChangedAsync"
+                    OnRecordDoubleClick="(args) => OnEditClickedAsync(args.RowData)"
+                    TValue="TItem"/>
+                <GridColumns>
+                    @if (Setup != null)
+                    {
+                        @foreach (var column in Setup.Columns)
+                        {
+                            <SnColumn TItem="TItem" Setup="@column"/>
+                        }
+                    }
+                </GridColumns>
+            </SfGrid>
+        </div>
+        @if (Insight != null)
+        {
+            <div class="@($"grid-insight {RightVisibleCssClass}")">
+                <SnInsight TItem="TItem">
+                    <Details>
+                        @Insight
+                    </Details>
+                </SnInsight>
+            </div>
+        }
+    </div>
+</div>
