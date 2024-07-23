@@ -9,7 +9,7 @@ using Raftel.Shared.Modules;
 namespace Raftel.Data.Tests.DbContext;
 
 [ModulesToInclude(typeof(DddModule),
-    typeof(EfCoreModule),
+    typeof(TestEfCoreModule),
     typeof(RaftelInfrastructureModule))]
 public class TestingDbFixture : RaftelDbFixture<TestingDbContext>
 {
